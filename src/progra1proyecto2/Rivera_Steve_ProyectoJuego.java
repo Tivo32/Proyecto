@@ -8,6 +8,7 @@ public class Rivera_Steve_ProyectoJuego {
         Battleship ventanaJuego = new Battleship();
         
         ventanaJuego.setVisible(true);
+        System.out.println("HOLAAAAAA");
         
         
     }
