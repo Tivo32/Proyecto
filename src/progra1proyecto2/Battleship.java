@@ -588,8 +588,8 @@ public class Battleship extends JFrame {
                             
                             if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){ 
                                 for(int control=1; control<=controlJugadorCreado; control++){
-                                    if(jugadores.get(control-1).nombreUsuario.equals(ingresarUsuario.getText().toUpperCase()) 
-                                            && jugadores.get(control-1).contraseña.equals(ingresarContra.getText().toUpperCase())){
+                                    if(jugadores.get(control-1).nombreUsuario.equals(ingresarUsuario.getText()) 
+                                            && jugadores.get(control-1).contraseña.equals(ingresarContra.getText())){
                                         menuPrincipal();
                                         break;
                                     }else{
@@ -611,7 +611,7 @@ public class Battleship extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){
-                    jugadores.add(new Player(ingresarUsuario.getText().toUpperCase(), ingresarContra.getText().toUpperCase()));
+                    jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
                     //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
                     //System.out.println(jugadores.get(0).nombreUsuario);
                     usuarioCreado++;
