@@ -11,4 +11,12 @@ public class Player {
         contraseña = contraseñaT;
         puntos=0;
     }
+    
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+    
+    public String getContraseña() {
+        return contraseña;
+    }
 }

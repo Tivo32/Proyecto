@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +24,7 @@ public class Battleship extends JFrame {
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonAceptarIniciarSesion, botonAceptarCrearUsuario;
     private JLabel cuadradoMI, etiquetaFondo1, tituloUsuario, tituloContra;
     private JTextField ingresarUsuario, ingresarContra;
-    Player jugadores[] = new Player[20];
+    ArrayList <Player> jugadores = new ArrayList <>();
     String nombreUsuario, contraseña;
     int controlJugadorCreado=0, puntos, usuarioCreado=0;
     
@@ -587,8 +588,8 @@ public class Battleship extends JFrame {
                             
                             if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){ 
                                 for(int control=1; control<=controlJugadorCreado; control++){
-                                    if(jugadores[control-1].nombreUsuario.equals(ingresarUsuario.getText().toUpperCase()) 
-                                            && jugadores[control-1].contraseña.equals(ingresarContra.getText().toUpperCase())){
+                                    if(jugadores.get(control-1).nombreUsuario.equals(ingresarUsuario.getText().toUpperCase()) 
+                                            && jugadores.get(control-1).contraseña.equals(ingresarContra.getText().toUpperCase())){
                                         menuPrincipal();
                                         break;
                                     }else{
@@ -610,8 +611,9 @@ public class Battleship extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){
-                    jugadores[controlJugadorCreado] = new Player(ingresarUsuario.getText().toUpperCase(), ingresarContra.getText().toUpperCase());
+                    jugadores.add(new Player(ingresarUsuario.getText().toUpperCase(), ingresarContra.getText().toUpperCase()));
                     //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
+                    //System.out.println(jugadores.get(0).nombreUsuario);
                     usuarioCreado++;
                     controlJugadorCreado++;
                 }
