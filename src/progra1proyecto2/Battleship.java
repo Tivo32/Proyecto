@@ -42,7 +42,8 @@ public class Battleship extends JFrame {
     
     private void iniciarComponentes(){
         colocarPanel();
-        menuInicio();
+      menuInicio();
+      //imprimirTablero();
     }
     
     private void colocarPanel(){
