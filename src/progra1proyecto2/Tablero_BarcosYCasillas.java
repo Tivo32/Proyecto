@@ -4,11 +4,11 @@ package progra1proyecto2;
 public class Tablero_BarcosYCasillas {
     
     
-    public class Barcos{
+
        
   private boolean barco1,barco2,barco3,barco4,barco5; 
         
-    public Barcos(){
+    public Tablero_BarcosYCasillas(){
         barco1=false;
         int vida1 = 5;
         
@@ -40,4 +40,4 @@ public class Tablero_BarcosYCasillas {
     int vidaDT = 2;
     */
     }
-}
+
