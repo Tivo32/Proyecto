@@ -42,7 +42,7 @@ public class Battleship extends JFrame {
     
     private void iniciarComponentes(){
         colocarPanel();
-      menuInicio();
+        menuInicio();
       //imprimirTablero();
     }
     
@@ -60,7 +60,7 @@ public class Battleship extends JFrame {
       botonIniciarSesion.setFont(new Font("copperplate gothic bold",0,40));
       panel.add(botonIniciarSesion);
       
-      if(usuarioCreado == 0){
+      if(usuarioCreado < 2){
          botonIniciarSesion.setEnabled(false);
         }
       
@@ -570,7 +570,7 @@ public class Battleship extends JFrame {
         ActionListener tocarSalirMI = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
+                System.exit(0);
             }
         };
         
