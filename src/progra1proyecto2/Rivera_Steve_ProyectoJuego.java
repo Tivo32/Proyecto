@@ -8,6 +8,5 @@ public class Rivera_Steve_ProyectoJuego {
         
         ventanaJuego.setVisible(true);
         
-        
     }
 }
