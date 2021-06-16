@@ -727,22 +727,26 @@ public class Battleship extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Al tocar boton Aceptar en el menu de iniciar sesion
-                panel.setVisible(false);
-                panel.removeAll();
-
+   
                 if (!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))) {
                     for (int control = 1; control <= controlJugadorCreado; control++) {
                         if (jugadores.get(control - 1).nombreUsuario.equals(ingresarUsuario.getText())
                                 && jugadores.get(control - 1).contraseña.equals(ingresarContra.getText())) {
+                            panel.setVisible(false);
+                            panel.removeAll();
                             menuPrincipal();
                             break;
                         } else {
                             if (control == controlJugadorCreado) {
+                                panel.setVisible(false);
+                                panel.removeAll();
                                 menuInicio();
                             }
                         }
                     }
                 } else {
+                    panel.setVisible(false);
+                    panel.removeAll();
                     menuInicio();
                 }
             }
