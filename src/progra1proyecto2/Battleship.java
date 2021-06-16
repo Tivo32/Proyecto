@@ -30,7 +30,7 @@ public class Battleship extends JFrame {
     private JComboBox selDificultad;
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
-            botonReportes, botonPerfil, botonSalirC;
+            botonReportes, botonPerfil, botonSalirC, botonRanking,botonHistorial;
     /*
     private JButton boton1a1, boton1a2, boton1a3, boton1a4, boton1a5, boton1a6, boton1a7, boton1a8,
             boton2a1, boton2a2, boton2a3, boton2a4, boton2a5, boton2a6, boton2a7, boton2a8,
@@ -45,6 +45,7 @@ public class Battleship extends JFrame {
             gamemode, errorEspacios1, errorEspacios2;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
+    ArrayList<Player> historial = new ArrayList<>(); 
     String nombreUsuario, contraseña;
     String[] dificultades = {"Easy","Normal","Expert","Genius"};
     int controlJugadorCreado = 0, puntos, usuarioCreado = 0;
@@ -317,6 +318,51 @@ public class Battleship extends JFrame {
 
         oyentesDeAccionCrearUsuario();
     }
+    
+    private void Reportes(){
+        panel.setVisible(true);
+        botonRanking = new JButton("Ranking");
+        botonRanking.setBounds(230, 350, 450, 80);
+        botonRanking.setFont(fuente.deriveFont(30f));
+        panel.add(botonRanking);
+
+        botonHistorial = new JButton("Historial");
+        botonHistorial.setBounds(230, 450, 450, 80);
+        botonHistorial.setFont(fuente.deriveFont(30f));
+        panel.add(botonHistorial);
+        
+        botonSalirMP = new JButton("Volver");
+        botonSalirMP.setBounds(230, 550, 450, 80);
+        botonSalirMP.setFont(fuente.deriveFont(30f));
+        panel.add(botonSalirMP);
+
+        ImageIcon titulo = new ImageIcon("titulo.png");
+        JLabel etiquetaTitulo = new JLabel();
+        etiquetaTitulo.setBounds(160, -20, 600, 300);
+        etiquetaTitulo.setIcon(new ImageIcon(titulo.getImage().getScaledInstance(etiquetaTitulo.getWidth(), etiquetaTitulo.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaTitulo);
+
+        ImageIcon fondo2 = new ImageIcon("fondo2.jpg");
+        JLabel etiquetaFondo2 = new JLabel();
+        etiquetaFondo2.setBounds(0, 0, 925, 950);
+        etiquetaFondo2.setIcon(new ImageIcon(fondo2.getImage().getScaledInstance(etiquetaFondo2.getWidth(), etiquetaFondo2.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaFondo2);
+
+        oyentesDeAccionMC();
+}
+    
+    private void menuRanking(){
+         panel.setVisible(true);
+         panel.setBounds(0, 0, 725, 650);
+         panel.setBackground(Color.green);
+         
+          oyentesDeAccionMR();
+}
+    private void menuHistorial(){
+         panel.setVisible(true);
+    
+    }
+    
     private void imprimirTablero() {
         panel.setVisible(true);
 
@@ -704,7 +750,16 @@ public class Battleship extends JFrame {
                 menuConfig();
             }
         };
-
+                ActionListener tocarReferencias = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                Reportes();
+            }
+        };
+        
+        botonReportes.addActionListener(tocarReferencias);        
         botonSalirMP.addActionListener(tocarSalirMP);
         botonConfig.addActionListener(tocarConfig);
         botonJugar.addActionListener(tocarJugar);
@@ -733,6 +788,20 @@ public class Battleship extends JFrame {
         botonJugar.addActionListener(tocarJugar);
     }
 
+    private void oyentesDeAccionMR(){
+        
+            ActionListener tocarRanking = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuRanking();
+            }
+        };
+            
+         botonRanking.addActionListener(tocarRanking);   
+    }
+    
     private void oyentesDeAccionIniciarSesion() {
         ActionListener tocarBotonAceptarIS = new ActionListener() {
             @Override
