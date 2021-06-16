@@ -765,7 +765,7 @@ public class Battleship extends JFrame {
                     if(ingresarUsuario.getText().contains(" ") || ingresarContra.getText().contains(" ")) {
                         
                     }else {
-                        jugadores.add(new Player(ingresarUsuario.getText().toUpperCase(), ingresarContra.getText().toUpperCase()));
+                        jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
                         //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
                         //System.out.println(jugadores.get(0).nombreUsuario);
                         usuarioCreado++;
