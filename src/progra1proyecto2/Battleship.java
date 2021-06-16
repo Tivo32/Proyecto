@@ -5,9 +5,13 @@ package progra1proyecto2;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,15 +48,22 @@ public class Battleship extends JFrame {
     String nombreUsuario, contraseña;
     String[] dificultades = {"Easy","Normal","Expert","Genius"};
     int controlJugadorCreado = 0, puntos, usuarioCreado = 0;
+    Font fuente;
 
     //Creacion de Ventana
-    public Battleship() {
+    public Battleship() throws FontFormatException {
         setBounds(0, 0, 925, 950);
         setTitle("Battleship");
         setLocationRelativeTo(null);
         setResizable(false);
         ImageIcon icono = new ImageIcon("battleships-game.jpg");
         setIconImage(icono.getImage());
+        try {
+            fuente = Font.createFont(Font.TRUETYPE_FONT, new File("Manti.otf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(fuente);
+        } catch (IOException | FontFormatException e) {
+        }
 
         iniciarComponentes();
 
@@ -75,7 +86,7 @@ public class Battleship extends JFrame {
 
         botonIniciarSesion = new JButton("Iniciar Sesión");
         botonIniciarSesion.setBounds(260, 240, 400, 80);
-        botonIniciarSesion.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonIniciarSesion.setFont(fuente.deriveFont(30f));
         panel.add(botonIniciarSesion);
 
         if (usuarioCreado < 2) {
@@ -84,12 +95,12 @@ public class Battleship extends JFrame {
 
         botonCrearUsuario = new JButton("Crear Usuario");
         botonCrearUsuario.setBounds(260, 390, 400, 80);
-        botonCrearUsuario.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonCrearUsuario.setFont(fuente.deriveFont(30f));
         panel.add(botonCrearUsuario);
 
         botonSalirMI = new JButton("Salir");
         botonSalirMI.setBounds(260, 540, 400, 80);
-        botonSalirMI.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonSalirMI.setFont(fuente.deriveFont(30f));
         panel.add(botonSalirMI);
 
         cuadradoMI = new JLabel();
@@ -112,22 +123,22 @@ public class Battleship extends JFrame {
 
         botonJugar = new JButton("JUGAR");
         botonJugar.setBounds(230, 350, 450, 80);
-        botonJugar.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonJugar.setFont(fuente.deriveFont(30f));
         panel.add(botonJugar);
 
         botonConfig = new JButton("Configuración");
         botonConfig.setBounds(230, 450, 450, 80);
-        botonConfig.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonConfig.setFont(fuente.deriveFont(30f));
         panel.add(botonConfig);
 
         botonReportes = new JButton("Reportes");
         botonReportes.setBounds(230, 550, 450, 80);
-        botonReportes.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonReportes.setFont(fuente.deriveFont(30f));
         panel.add(botonReportes);
 
         botonPerfil = new JButton("Mi Perfil");
         botonPerfil.setBounds(230, 650, 450, 80);
-        botonPerfil.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonPerfil.setFont(fuente.deriveFont(30f));
         panel.add(botonPerfil);
 
         botonSalirMP = new JButton("Salir");
@@ -157,23 +168,23 @@ public class Battleship extends JFrame {
         dificultad = new JLabel("Dificultad");
         dificultad.setBounds(110, 400, 450, 80);
         dificultad.setForeground(Color.white);
-        dificultad.setFont(new Font("copperplate gothic bold", 0, 40));
+        dificultad.setFont(fuente.deriveFont(30f));
         panel.add(dificultad);
         
         selDificultad = new JComboBox(dificultades);
         selDificultad.setBounds(550, 415, 250, 65);
-        selDificultad.setFont(new Font("copperplate gothic bold", 0, 40));
+        selDificultad.setFont(fuente.deriveFont(30f));
         panel.add(selDificultad);
 
         gamemode = new JLabel("Modo de Juego");
         gamemode.setBounds(110, 500, 550, 80);
         gamemode.setForeground(Color.white);
-        gamemode.setFont(new Font("copperplate gothic bold", 0, 40));
+        gamemode.setFont(fuente.deriveFont(30f));
         panel.add(gamemode);
 
         botonSalirC = new JButton("Volver");
         botonSalirC.setBounds(230, 650, 450, 80);
-        botonSalirC.setFont(new Font("copperplate gothic bold", 0, 40));
+        botonSalirC.setFont(fuente.deriveFont(30f));
         panel.add(botonSalirC);
         
         cuadradoMI = new JLabel();
@@ -202,30 +213,30 @@ public class Battleship extends JFrame {
     private void inicioDeSesion() {
         panel.setVisible(true);
 
-        tituloUsuario = new JLabel("Nombre de Usuario: ", SwingConstants.CENTER);
+        tituloUsuario = new JLabel("Nombre de Usuario: ", SwingConstants.LEFT);
         tituloUsuario.setBounds(200, 230, 500, 100);
         tituloUsuario.setForeground(Color.WHITE);
-        tituloUsuario.setFont(new Font("copperplate gothic bold", 0, 40));
+        tituloUsuario.setFont(fuente.deriveFont(30f));
         panel.add(tituloUsuario);
 
         ingresarUsuario = new JTextField();
         ingresarUsuario.setBounds(220, 320, 480, 50);
-        ingresarUsuario.setFont(new Font("copperplate gothic bold", 0, 35));
+        ingresarUsuario.setFont(fuente.deriveFont(30f));
         panel.add(ingresarUsuario);
 
-        tituloContra = new JLabel("Contraseña: ", SwingConstants.CENTER);
+        tituloContra = new JLabel("Contraseña: ", SwingConstants.LEFT);
         tituloContra.setBounds(215, 400, 320, 100);
         tituloContra.setForeground(Color.WHITE);
-        tituloContra.setFont(new Font("copperplate gothic bold", 0, 40));
+        tituloContra.setFont(fuente.deriveFont(30f));
         panel.add(tituloContra);
 
         ingresarContra = new JTextField();
         ingresarContra.setBounds(220, 490, 480, 50);
-        ingresarContra.setFont(new Font("copperplate gothic bold", 0, 35));
+        ingresarContra.setFont(fuente.deriveFont(30f));
         panel.add(ingresarContra);
 
         botonAceptarIniciarSesion = new JButton("Iniciar");
-        botonAceptarIniciarSesion.setFont(new Font("copperplate gothic bold", 0, 35));
+        botonAceptarIniciarSesion.setFont(fuente.deriveFont(30f));
         botonAceptarIniciarSesion.setBounds(310, 590, 300, 50);
         panel.add(botonAceptarIniciarSesion);
 
@@ -248,30 +259,30 @@ public class Battleship extends JFrame {
     private void creacionDeUsuario() {
         panel.setVisible(true);
 
-        tituloUsuario = new JLabel("Nombre de Usuario: ", SwingConstants.CENTER);
-        tituloUsuario.setBounds(200, 230, 500, 100);
+        tituloUsuario = new JLabel("Nombre de Usuario: ", SwingConstants.LEFT);
+        tituloUsuario.setBounds(200, 230, 500, 110);
         tituloUsuario.setForeground(Color.WHITE);
-        tituloUsuario.setFont(new Font("copperplate gothic bold", 0, 40));
+        tituloUsuario.setFont(fuente.deriveFont(30f));
         panel.add(tituloUsuario);
 
         ingresarUsuario = new JTextField();
         ingresarUsuario.setBounds(220, 320, 480, 50);
-        ingresarUsuario.setFont(new Font("copperplate gothic bold", 0, 35));
+        ingresarUsuario.setFont(fuente.deriveFont(30f));
         panel.add(ingresarUsuario);
 
-        tituloContra = new JLabel("Contraseña: ", SwingConstants.CENTER);
-        tituloContra.setBounds(215, 400, 320, 100);
+        tituloContra = new JLabel("Contraseña: ", SwingConstants.LEFT);
+        tituloContra.setBounds(215, 400, 320, 105);
         tituloContra.setForeground(Color.WHITE);
-        tituloContra.setFont(new Font("copperplate gothic bold", 0, 40));
+        tituloContra.setFont(fuente.deriveFont(30f));
         panel.add(tituloContra);
 
         ingresarContra = new JTextField();
         ingresarContra.setBounds(220, 490, 480, 50);
-        ingresarContra.setFont(new Font("copperplate gothic bold", 0, 35));
+        ingresarContra.setFont(fuente.deriveFont(30f));
         panel.add(ingresarContra);
 
         botonAceptarCrearUsuario = new JButton("Crear");
-        botonAceptarCrearUsuario.setFont(new Font("copperplate gothic bold", 0, 35));
+        botonAceptarCrearUsuario.setFont(fuente.deriveFont(30f));
         botonAceptarCrearUsuario.setBounds(310, 590, 300, 50);
         panel.add(botonAceptarCrearUsuario);
         
