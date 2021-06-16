@@ -37,8 +37,8 @@ public class Battleship extends JFrame {
             boton7a1, boton7a2, boton7a3, boton7a4, boton7a5, boton7a6, boton7a7, boton7a8,
             boton8a1, boton8a2, boton8a3, boton8a4, boton8a5, boton8a6, boton8a7, boton8a8;
     */
-    private JLabel cuadradoMI, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode;
+    private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
+            gamemode, errorEspacios1, errorEspacios2;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
     String nombreUsuario, contraseña;
@@ -274,12 +274,29 @@ public class Battleship extends JFrame {
         botonAceptarCrearUsuario.setFont(new Font("copperplate gothic bold", 0, 35));
         botonAceptarCrearUsuario.setBounds(310, 590, 300, 50);
         panel.add(botonAceptarCrearUsuario);
+        
+        errorEspacios1 = new JLabel("El nombre y la contraseña", SwingConstants.CENTER);
+        errorEspacios2 = new JLabel("no pueden contener espacios.", SwingConstants.CENTER);  
+        errorEspacios1.setBounds(160, 670, 600, 100);
+        errorEspacios2.setBounds(160, 700, 600, 100);
+        errorEspacios1.setFont(new Font("copperplate gothic bold",0,30));
+        errorEspacios2.setFont(new Font("copperplate gothic bold",0,30));
+        errorEspacios1.setForeground(Color.RED);
+        errorEspacios2.setForeground(Color.RED);
+        panel.add(errorEspacios1);
+        panel.add(errorEspacios2);
 
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 190, 520, 480);
         cuadradoMI.setOpaque(true);
         cuadradoMI.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 690, 520, 90);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
 
         ImageIcon fondo1 = new ImageIcon("fondo1.jpeg");
         etiquetaFondo1 = new JLabel();
@@ -740,12 +757,16 @@ public class Battleship extends JFrame {
         ActionListener tocarBotonCrear = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))) {
-                    jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
-                    //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
-                    //System.out.println(jugadores.get(0).nombreUsuario);
-                    usuarioCreado++;
-                    controlJugadorCreado++;
+                if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){
+                    if(ingresarUsuario.getText().contains(" ") || ingresarContra.getText().contains(" ")) {
+                        
+                    }else {
+                        jugadores.add(new Player(ingresarUsuario.getText().toUpperCase(), ingresarContra.getText().toUpperCase()));
+                        //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
+                        //System.out.println(jugadores.get(0).nombreUsuario);
+                        usuarioCreado++;
+                        controlJugadorCreado++;
+                    }
                 }
 
                 panel.setVisible(false);
