@@ -31,7 +31,6 @@ public class Battleship extends JFrame {
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
             botonReportes, botonPerfil, botonSalirC, botonRanking,botonHistorial;
-    /*
     private JButton boton1a1, boton1a2, boton1a3, boton1a4, boton1a5, boton1a6, boton1a7, boton1a8,
             boton2a1, boton2a2, boton2a3, boton2a4, boton2a5, boton2a6, boton2a7, boton2a8,
             boton3a1, boton3a2, boton3a3, boton3a4, boton3a5, boton3a6, boton3a7, boton3a8,
@@ -40,7 +39,6 @@ public class Battleship extends JFrame {
             boton6a1, boton6a2, boton6a3, boton6a4, boton6a5, boton6a6, boton6a7, boton6a8,
             boton7a1, boton7a2, boton7a3, boton7a4, boton7a5, boton7a6, boton7a7, boton7a8,
             boton8a1, boton8a2, boton8a3, boton8a4, boton8a5, boton8a6, boton8a7, boton8a8;
-    */
     private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
             gamemode, errorEspacios1, errorEspacios2;
     private JTextField ingresarUsuario, ingresarContra;
@@ -366,7 +364,6 @@ public class Battleship extends JFrame {
     private void imprimirTablero() {
         panel.setVisible(true);
 
-/*
         boton1a1 = new JButton();
         boton1a1.setBounds(20, 20, 110, 110);
         boton1a1.setBackground(Color.BLUE);
@@ -686,7 +683,6 @@ public class Battleship extends JFrame {
         boton8a8.setBounds(790, 790, 110, 110);
         boton8a8.setBackground(Color.BLUE);
         panel.add(boton8a8);
-*/
     }
 
     private void oyentesDeAccionMI() {
@@ -738,7 +734,9 @@ public class Battleship extends JFrame {
         ActionListener tocarJugar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
+                panel.setVisible(false);
+                panel.removeAll();
+                imprimirTablero();
             }
         };
         
@@ -841,15 +839,27 @@ public class Battleship extends JFrame {
         ActionListener tocarBotonCrear = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                boolean usuarioUsado = false;
                 if(!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))){
                     if(ingresarUsuario.getText().contains(" ") || ingresarContra.getText().contains(" ")) {
                         
                     }else {
-                        jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
-                        //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
-                        //System.out.println(jugadores.get(0).nombreUsuario);
-                        usuarioCreado++;
-                        controlJugadorCreado++;
+                        for (int usuario = 0; usuario < jugadores.size(); usuario++) {
+                            if (jugadores.get(usuario).nombreUsuario != null) {
+                                if (jugadores.get(usuario).nombreUsuario.equals(ingresarUsuario.getText())) {
+                                    usuarioUsado = true;
+                                }
+                            }
+                        }
+                        if (!usuarioUsado) {
+                            jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
+                            //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
+                            //System.out.println(jugadores.get(0).nombreUsuario);
+                            usuarioCreado++;
+                            controlJugadorCreado++;
+                        }
+                        usuarioUsado = false;
+                        
                     }
                 }
 
