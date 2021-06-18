@@ -30,7 +30,7 @@ public class Battleship extends JFrame {
     private JComboBox selDificultad;
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
-            botonReportes, botonPerfil, botonSalirC, botonRanking,botonHistorial;
+            botonReportes, botonPerfil, botonSalirC, botonRanking,botonHistorial,botonVolver;
     private JButton boton1a1, boton1a2, boton1a3, boton1a4, boton1a5, boton1a6, boton1a7, boton1a8,
             boton2a1, boton2a2, boton2a3, boton2a4, boton2a5, boton2a6, boton2a7, boton2a8,
             boton3a1, boton3a2, boton3a3, boton3a4, boton3a5, boton3a6, boton3a7, boton3a8,
@@ -346,13 +346,14 @@ public class Battleship extends JFrame {
         etiquetaFondo2.setIcon(new ImageIcon(fondo2.getImage().getScaledInstance(etiquetaFondo2.getWidth(), etiquetaFondo2.getHeight(), Image.SCALE_SMOOTH)));
         panel.add(etiquetaFondo2);
 
-        oyentesDeAccionMC();
+        oyentesDeAccionMP();
 }
     
     private void menuRanking(){
          panel.setVisible(true);
          panel.setBounds(0, 0, 725, 650);
          panel.setBackground(Color.green);
+         
          
           oyentesDeAccionMR();
 }
