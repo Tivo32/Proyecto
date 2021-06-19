@@ -29,14 +29,6 @@ public class Battleship extends JFrame {
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
             botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver;
-    private JButton boton1a1, boton1a2, boton1a3, boton1a4, boton1a5, boton1a6, boton1a7, boton1a8,
-            boton2a1, boton2a2, boton2a3, boton2a4, boton2a5, boton2a6, boton2a7, boton2a8,
-            boton3a1, boton3a2, boton3a3, boton3a4, boton3a5, boton3a6, boton3a7, boton3a8,
-            boton4a1, boton4a2, boton4a3, boton4a4, boton4a5, boton4a6, boton4a7, boton4a8,
-            boton5a1, boton5a2, boton5a3, boton5a4, boton5a5, boton5a6, boton5a7, boton5a8,
-            boton6a1, boton6a2, boton6a3, boton6a4, boton6a5, boton6a6, boton6a7, boton6a8,
-            boton7a1, boton7a2, boton7a3, boton7a4, boton7a5, boton7a6, boton7a7, boton7a8,
-            boton8a1, boton8a2, boton8a3, boton8a4, boton8a5, boton8a6, boton8a7, boton8a8;
     private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
             gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage;
     private JTextField ingresarUsuario, ingresarContra;
@@ -44,8 +36,9 @@ public class Battleship extends JFrame {
     ArrayList<Player> historial = new ArrayList<>();
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
-    int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado;
-    boolean error = false;
+    int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado, id2;
+    byte dif;
+    boolean error = false, inicio = true;
     Font fuente;
 
     //Creacion de Ventana
@@ -399,331 +392,7 @@ public class Battleship extends JFrame {
         oyentesRetador();
         
     }
-
-    private void imprimirTablero() {
-        panel.setVisible(true);
-
-        boton1a1 = new JButton();
-        boton1a1.setBounds(20, 20, 110, 110);
-        boton1a1.setBackground(Color.BLUE);
-        panel.add(boton1a1);
-
-        boton1a2 = new JButton();
-        boton1a2.setBounds(130, 20, 110, 110);
-        boton1a2.setBackground(Color.BLUE);
-        panel.add(boton1a2);
-
-        boton1a3 = new JButton();
-        boton1a3.setBounds(240, 20, 110, 110);
-        boton1a3.setBackground(Color.BLUE);
-        panel.add(boton1a3);
-
-        boton1a4 = new JButton();
-        boton1a4.setBounds(350, 20, 110, 110);
-        boton1a4.setBackground(Color.BLUE);
-        panel.add(boton1a4);
-
-        boton1a5 = new JButton();
-        boton1a5.setBounds(460, 20, 110, 110);
-        boton1a5.setBackground(Color.BLUE);
-        panel.add(boton1a5);
-
-        boton1a6 = new JButton();
-        boton1a6.setBounds(570, 20, 110, 110);
-        boton1a6.setBackground(Color.BLUE);
-        panel.add(boton1a6);
-
-        boton1a7 = new JButton();
-        boton1a7.setBounds(680, 20, 110, 110);
-        boton1a7.setBackground(Color.BLUE);
-        panel.add(boton1a7);
-
-        boton1a8 = new JButton();
-        boton1a8.setBounds(790, 20, 110, 110);
-        boton1a8.setBackground(Color.BLUE);
-        panel.add(boton1a8);
-
-        boton2a1 = new JButton();
-        boton2a1.setBounds(20, 130, 110, 110);
-        boton2a1.setBackground(Color.BLUE);
-        panel.add(boton2a1);
-
-        boton2a2 = new JButton();
-        boton2a2.setBounds(130, 130, 110, 110);
-        boton2a2.setBackground(Color.BLUE);
-        panel.add(boton2a2);
-
-        boton2a3 = new JButton();
-        boton2a3.setBounds(240, 130, 110, 110);
-        boton2a3.setBackground(Color.BLUE);
-        panel.add(boton2a3);
-
-        boton2a4 = new JButton();
-        boton2a4.setBounds(350, 130, 110, 110);
-        boton2a4.setBackground(Color.BLUE);
-        panel.add(boton2a4);
-
-        boton2a5 = new JButton();
-        boton2a5.setBounds(460, 130, 110, 110);
-        boton2a5.setBackground(Color.BLUE);
-        panel.add(boton2a5);
-
-        boton2a6 = new JButton();
-        boton2a6.setBounds(570, 130, 110, 110);
-        boton2a6.setBackground(Color.BLUE);
-        panel.add(boton2a6);
-
-        boton2a7 = new JButton();
-        boton2a7.setBounds(680, 130, 110, 110);
-        boton2a7.setBackground(Color.BLUE);
-        panel.add(boton2a7);
-
-        boton2a8 = new JButton();
-        boton2a8.setBounds(790, 130, 110, 110);
-        boton2a8.setBackground(Color.BLUE);
-        panel.add(boton2a8);
-
-        boton3a1 = new JButton();
-        boton3a1.setBounds(20, 240, 110, 110);
-        boton3a1.setBackground(Color.BLUE);
-        panel.add(boton3a1);
-
-        boton3a2 = new JButton();
-        boton3a2.setBounds(130, 240, 110, 110);
-        boton3a2.setBackground(Color.BLUE);
-        panel.add(boton3a2);
-
-        boton3a3 = new JButton();
-        boton3a3.setBounds(240, 240, 110, 110);
-        boton3a3.setBackground(Color.BLUE);
-        panel.add(boton3a3);
-
-        boton3a4 = new JButton();
-        boton3a4.setBounds(350, 240, 110, 110);
-        boton3a4.setBackground(Color.BLUE);
-        panel.add(boton3a4);
-
-        boton3a5 = new JButton();
-        boton3a5.setBounds(460, 240, 110, 110);
-        boton3a5.setBackground(Color.BLUE);
-        panel.add(boton3a5);
-
-        boton3a6 = new JButton();
-        boton3a6.setBounds(570, 240, 110, 110);
-        boton3a6.setBackground(Color.BLUE);
-        panel.add(boton3a6);
-
-        boton3a7 = new JButton();
-        boton3a7.setBounds(680, 240, 110, 110);
-        boton3a7.setBackground(Color.BLUE);
-        panel.add(boton3a7);
-
-        boton3a8 = new JButton();
-        boton3a8.setBounds(790, 240, 110, 110);
-        boton3a8.setBackground(Color.BLUE);
-        panel.add(boton3a8);
-
-        boton4a1 = new JButton();
-        boton4a1.setBounds(20, 350, 110, 110);
-        boton4a1.setBackground(Color.BLUE);
-        panel.add(boton4a1);
-
-        boton4a2 = new JButton();
-        boton4a2.setBounds(130, 350, 110, 110);
-        boton4a2.setBackground(Color.BLUE);
-        panel.add(boton4a2);
-
-        boton4a3 = new JButton();
-        boton4a3.setBounds(240, 350, 110, 110);
-        boton4a3.setBackground(Color.BLUE);
-        panel.add(boton4a3);
-
-        boton4a4 = new JButton();
-        boton4a4.setBounds(350, 350, 110, 110);
-        boton4a4.setBackground(Color.BLUE);
-        panel.add(boton4a4);
-
-        boton4a5 = new JButton();
-        boton4a5.setBounds(460, 350, 110, 110);
-        boton4a5.setBackground(Color.BLUE);
-        panel.add(boton4a5);
-
-        boton4a6 = new JButton();
-        boton4a6.setBounds(570, 350, 110, 110);
-        boton4a6.setBackground(Color.BLUE);
-        panel.add(boton4a6);
-
-        boton4a7 = new JButton();
-        boton4a7.setBounds(680, 350, 110, 110);
-        boton4a7.setBackground(Color.BLUE);
-        panel.add(boton4a7);
-
-        boton4a8 = new JButton();
-        boton4a8.setBounds(790, 350, 110, 110);
-        boton4a8.setBackground(Color.BLUE);
-        panel.add(boton4a8);
-
-        boton5a1 = new JButton();
-        boton5a1.setBounds(20, 460, 110, 110);
-        boton5a1.setBackground(Color.BLUE);
-        panel.add(boton5a1);
-
-        boton5a2 = new JButton();
-        boton5a2.setBounds(130, 460, 110, 110);
-        boton5a2.setBackground(Color.BLUE);
-        panel.add(boton5a2);
-
-        boton5a3 = new JButton();
-        boton5a3.setBounds(240, 460, 110, 110);
-        boton5a3.setBackground(Color.BLUE);
-        panel.add(boton5a3);
-
-        boton5a4 = new JButton();
-        boton5a4.setBounds(350, 460, 110, 110);
-        boton5a4.setBackground(Color.BLUE);
-        panel.add(boton5a4);
-
-        boton5a5 = new JButton();
-        boton5a5.setBounds(460, 460, 110, 110);
-        boton5a5.setBackground(Color.BLUE);
-        panel.add(boton5a5);
-
-        boton5a6 = new JButton();
-        boton5a6.setBounds(570, 460, 110, 110);
-        boton5a6.setBackground(Color.BLUE);
-        panel.add(boton5a6);
-
-        boton5a7 = new JButton();
-        boton5a7.setBounds(680, 460, 110, 110);
-        boton5a7.setBackground(Color.BLUE);
-        panel.add(boton5a7);
-
-        boton5a8 = new JButton();
-        boton5a8.setBounds(790, 460, 110, 110);
-        boton5a8.setBackground(Color.BLUE);
-        panel.add(boton5a8);
-
-        boton6a1 = new JButton();
-        boton6a1.setBounds(20, 570, 110, 110);
-        boton6a1.setBackground(Color.BLUE);
-        panel.add(boton6a1);
-
-        boton6a2 = new JButton();
-        boton6a2.setBounds(130, 570, 110, 110);
-        boton6a2.setBackground(Color.BLUE);
-        panel.add(boton6a2);
-
-        boton6a3 = new JButton();
-        boton6a3.setBounds(240, 570, 110, 110);
-        boton6a3.setBackground(Color.BLUE);
-        panel.add(boton6a3);
-
-        boton6a4 = new JButton();
-        boton6a4.setBounds(350, 570, 110, 110);
-        boton6a4.setBackground(Color.BLUE);
-        panel.add(boton6a4);
-
-        boton6a5 = new JButton();
-        boton6a5.setBounds(460, 570, 110, 110);
-        boton6a5.setBackground(Color.BLUE);
-        panel.add(boton6a5);
-
-        boton6a6 = new JButton();
-        boton6a6.setBounds(570, 570, 110, 110);
-        boton6a6.setBackground(Color.BLUE);
-        panel.add(boton6a6);
-
-        boton6a7 = new JButton();
-        boton6a7.setBounds(680, 570, 110, 110);
-        boton6a7.setBackground(Color.BLUE);
-        panel.add(boton6a7);
-
-        boton6a8 = new JButton();
-        boton6a8.setBounds(790, 570, 110, 110);
-        boton6a8.setBackground(Color.BLUE);
-        panel.add(boton6a8);
-
-        boton7a1 = new JButton();
-        boton7a1.setBounds(20, 680, 110, 110);
-        boton7a1.setBackground(Color.BLUE);
-        panel.add(boton7a1);
-
-        boton7a2 = new JButton();
-        boton7a2.setBounds(130, 680, 110, 110);
-        boton7a2.setBackground(Color.BLUE);
-        panel.add(boton7a2);
-
-        boton7a3 = new JButton();
-        boton7a3.setBounds(240, 680, 110, 110);
-        boton7a3.setBackground(Color.BLUE);
-        panel.add(boton7a3);
-
-        boton7a4 = new JButton();
-        boton7a4.setBounds(350, 680, 110, 110);
-        boton7a4.setBackground(Color.BLUE);
-        panel.add(boton7a4);
-
-        boton7a5 = new JButton();
-        boton7a5.setBounds(460, 680, 110, 110);
-        boton7a5.setBackground(Color.BLUE);
-        panel.add(boton7a5);
-
-        boton7a6 = new JButton();
-        boton7a6.setBounds(570, 680, 110, 110);
-        boton7a6.setBackground(Color.BLUE);
-        panel.add(boton7a6);
-
-        boton7a7 = new JButton();
-        boton7a7.setBounds(680, 680, 110, 110);
-        boton7a7.setBackground(Color.BLUE);
-        panel.add(boton7a7);
-
-        boton7a8 = new JButton();
-        boton7a8.setBounds(790, 680, 110, 110);
-        boton7a8.setBackground(Color.BLUE);
-        panel.add(boton7a8);
-
-        boton8a1 = new JButton();
-        boton8a1.setBounds(20, 790, 110, 110);
-        boton8a1.setBackground(Color.BLUE);
-        panel.add(boton8a1);
-
-        boton8a2 = new JButton();
-        boton8a2.setBounds(130, 790, 110, 110);
-        boton8a2.setBackground(Color.BLUE);
-        panel.add(boton8a2);
-
-        boton8a3 = new JButton();
-        boton8a3.setBounds(240, 790, 110, 110);
-        boton8a3.setBackground(Color.BLUE);
-        panel.add(boton8a3);
-
-        boton8a4 = new JButton();
-        boton8a4.setBounds(350, 790, 110, 110);
-        boton8a4.setBackground(Color.BLUE);
-        panel.add(boton8a4);
-
-        boton8a5 = new JButton();
-        boton8a5.setBounds(460, 790, 110, 110);
-        boton8a5.setBackground(Color.BLUE);
-        panel.add(boton8a5);
-
-        boton8a6 = new JButton();
-        boton8a6.setBounds(570, 790, 110, 110);
-        boton8a6.setBackground(Color.BLUE);
-        panel.add(boton8a6);
-
-        boton8a7 = new JButton();
-        boton8a7.setBounds(680, 790, 110, 110);
-        boton8a7.setBackground(Color.BLUE);
-        panel.add(boton8a7);
-
-        boton8a8 = new JButton();
-        boton8a8.setBounds(790, 790, 110, 110);
-        boton8a8.setBackground(Color.BLUE);
-        panel.add(boton8a8);
-    }
-
+   
     private void oyentesDeAccionMI() {
         //Al tocar boton Iniciar Sesion
         ActionListener tocarInicioSesion = new ActionListener() {
@@ -808,21 +477,14 @@ public class Battleship extends JFrame {
         ActionListener tocarSalirC = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                dif = (byte)selDificultad.getSelectedIndex();
                 panel.setVisible(false);
                 panel.removeAll();
                 menuPrincipal();
             }
         };
 
-        ActionListener tocarJugar = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-            }
-        };
-
         botonSalirC.addActionListener(tocarSalirC);
-        botonJugar.addActionListener(tocarJugar);
     }
     
     private void oyentesRetador() {
@@ -852,7 +514,7 @@ public class Battleship extends JFrame {
                 if (match) {
                     panel.setVisible(false);
                     panel.removeAll();
-                    imprimirTablero();
+                    Tablero inGame = new Tablero(panel, dif);
                 }
                 else {
                     error = true;
