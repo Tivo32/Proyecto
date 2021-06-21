@@ -21,16 +21,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Battleship extends JFrame {
+public class Battleship extends JFrame implements ActionListener{
 
     //Declarar variables
     private JPanel panel;
     private JComboBox selDificultad;
+    private JButton[][] tablero;
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
             botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver;
     private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage;
+            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
     ArrayList<Player> historial = new ArrayList<>();
@@ -392,6 +393,44 @@ public class Battleship extends JFrame {
         oyentesRetador();
         
     }
+    
+    private void Juego() {
+        
+         Tablero(dif);
+        
+    }
+    
+    public void Tablero(byte dif) {
+        
+        tablero = new JButton[8][8];
+        label = new JLabel();
+        panel.setVisible(true);
+        
+        this.dificultad = dificultad;
+        int x = 20, y = 20, nombreI = 1;
+        label.setBounds(0, 0, 200, 200);
+        label.setOpaque(true);
+        label.setBackground(new Color(0,0,0,70));
+        panel.add(label);
+        for (int fila = 0; fila < tablero.length; fila++) {
+            for (int columna = 0; columna < tablero[fila].length; columna++) {
+                tablero[fila][columna] = new JButton();
+                tablero[fila][columna].setBounds(x, y, 110, 110);
+                tablero[fila][columna].setBackground(Color.BLUE);
+                String filas = Integer.toString(fila);
+                String columnas = Integer.toString(columna);
+                tablero[fila][columna].setText(filas+columnas);
+                tablero[fila][columna].addActionListener(this);
+                panel.add(tablero[fila][columna]);
+                x += 110;
+            }
+            x = 20;
+            y += 110;
+        }
+        y = 20;
+        
+    }
+    
    
     private void oyentesDeAccionMI() {
         //Al tocar boton Iniciar Sesion
@@ -514,7 +553,7 @@ public class Battleship extends JFrame {
                 if (match) {
                     panel.setVisible(false);
                     panel.removeAll();
-                    Tablero inGame = new Tablero(panel, dif);
+                    Juego();
                 }
                 else {
                     error = true;
@@ -628,6 +667,17 @@ public class Battleship extends JFrame {
 
         ingresarContra.addActionListener(tocarBotonCrear);
         botonAceptarCrearUsuario.addActionListener(tocarBotonCrear);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        String temporales = Character.toString(ae.getActionCommand().charAt(0));
+        int fila = Integer.valueOf(temporales);
+        temporales = Character.toString(ae.getActionCommand().charAt(1));
+        int columna = Integer.valueOf(temporales);
+        
+        System.out.println(fila +"  " +columna);
+        
     }
 
 }
