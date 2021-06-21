@@ -48,13 +48,14 @@ public class Reportes {
             default:
                 return null;
         }
-    public void Ranking ( ArrayList<Player> ){
         
-        for (int control = 0; control < ; control++) {
-            
-        }
-        }
-            }
+    }
+    
+    public void Ranking (ArrayList<Player> jugadores){
+        
+        
+        
+    }
 
   /*  public static void main(String[] args) {
 
