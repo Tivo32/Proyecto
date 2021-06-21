@@ -1,14 +1,15 @@
 package progra1proyecto2;
-
+import java.util.ArrayList;
 /**
  *
- * @author JoseRene
+ * @author Jose Girard, Carlos Uziel, Steve Rivera
  */
 public class Reportes {
 
     private int Id1;
     private int Id2;
     private int Res;
+    private ArrayList<Player> jugadores = new ArrayList<>();
 
     public Reportes(int id1, int id2, int res) {
 
@@ -47,15 +48,20 @@ public class Reportes {
             default:
                 return null;
         }
-
-    }
+    public void Ranking ( ArrayList<Player> ){
+        
+        for (int control = 0; control < ; control++) {
+            
+        }
+        }
+            }
 
   /*  public static void main(String[] args) {
 
         int id1[] = new int[3];
         int id2[] = new int[3];
         int respuesta[] = new int[3];
-       
+        
 
         for (int control = 0; control < 3; control++) {
             id1[control] = control;
