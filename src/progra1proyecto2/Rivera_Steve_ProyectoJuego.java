@@ -1,7 +1,7 @@
 
 package progra1proyecto2;
 
-// Steve Rivera, Carlos Nuñez, José Rene
+// Steve Rivera, Carlos Nuñez, José Rene Girard
 
 import java.awt.FontFormatException;
 

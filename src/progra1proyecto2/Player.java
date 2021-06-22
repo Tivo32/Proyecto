@@ -1,7 +1,7 @@
 
 package progra1proyecto2;
 
-// Steve Rivera, Carlos Nuñez, José Rene
+// Steve Rivera, Carlos Nuñez, José Rene Girard
 public class Player {
     String nombreUsuario, contraseña;
    private int puntos;
@@ -24,7 +24,7 @@ public class Player {
     public void SetPuntos(int Score){
     this.puntos=Score;}
     
-    public int GetPuntos(int Score){
-    return Score;
+    public int getPuntos(){
+    return puntos;
     }
 }

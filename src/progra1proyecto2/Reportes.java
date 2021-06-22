@@ -1,5 +1,7 @@
 package progra1proyecto2;
+
 import java.util.ArrayList;
+
 /**
  *
  * @author Jose Girard, Carlos Uziel, Steve Rivera
@@ -9,7 +11,7 @@ public class Reportes {
     private int Id1;
     private int Id2;
     private int Res;
-    private ArrayList<Player> jugadores = new ArrayList<>();
+    private ArrayList<Player> jugador = new ArrayList<>();
 
     public Reportes(int id1, int id2, int res) {
 
@@ -48,31 +50,50 @@ public class Reportes {
             default:
                 return null;
         }
-        
-    }
-    
-    public void Ranking (ArrayList<Player> jugadores){
-        
-        
-        
+
     }
 
-  /*  public static void main(String[] args) {
+    public void Ranking(ArrayList<Player> jugador) {
 
-        int id1[] = new int[3];
-        int id2[] = new int[3];
-        int respuesta[] = new int[3];
-        
+        Player Tp = new Player("", "");
 
-        for (int control = 0; control < 3; control++) {
-            id1[control] = control;
-            id2[control] = control;
-            respuesta[control] = control;
-            
-            Reportes RE = new Reportes(id1[control], id2[control], respuesta[control]);
-            System.out.println(id1[control]+ " " + (RE.getRes(respuesta[control])+ "  "+ id2[control]));
-            
-            
+        for (int control = 0; control < jugador.size(); control++) {
+
+            int numero = 0;
+
+            ArrayList<Player> Score = new ArrayList<>();
+            ArrayList<Player> Rank = new ArrayList<>();
+
+            Score.add(jugador.get(control));
+
+            for (int control2 = 1; control2 < jugador.size(); control2++) {
+
+                if (Score.get(control).getPuntos() > jugador.get(control2).getPuntos()) {
+
+                    Rank.add(jugador.get(control));
+                    
+                    
+                }
+
+            }
         }
-    }*/
+
+    }
+
+    public static void main(String[] args) {
+
+        ArrayList<Player> Score = new ArrayList<>();
+        Reportes Rk = new Reportes(0, 0, 0);
+        Player Tp = new Player("", "");
+
+        String Array[] = new String[10];
+        int punto[] = new int[10];
+
+        for (int control = 0; control < Array.length; control++) {
+            Rk.Ranking(Score);
+            
+            System.out.println(Score);
+        }
+
+    }
 }
