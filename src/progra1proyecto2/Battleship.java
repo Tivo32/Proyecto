@@ -723,6 +723,29 @@ public class Battleship extends JFrame implements ActionListener {
         botonAceptarCrearUsuario.addActionListener(tocarBotonCrear);
     }
 
+    public void imprimirRanking(){
+        String orden;
+        String ranking[] = new String[jugadores.size()];
+        
+        for(int control=0; control<jugadores.size(); control++) {
+            ranking[control] = jugadores.get(control).getNombreUsuario();
+        }
+        
+        for(int control=1; control<jugadores.size(); control++){
+            for(int control2=0; control2<jugadores.size(); control++){
+                if(jugadores.get(control).getPuntos() > jugadores.get(control+1).getPuntos()) {
+                    orden = ranking[control];               
+                    ranking[control] = ranking[control+1];             
+                    ranking[control+1] = orden; 
+                }
+            }
+        }
+        
+        for(int control1=1, control2=ranking.length; control2 > -1;control2--, control1++) {
+                System.out.println(control1+". "+ranking[control2]);
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         String temporales = Character.toString(ae.getActionCommand().charAt(0));
