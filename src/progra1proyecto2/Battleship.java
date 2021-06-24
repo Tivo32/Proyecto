@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -26,10 +27,10 @@ public class Battleship extends JFrame implements ActionListener {
 
     //Declarar variables
     private Timer _timer;
-    private JPanel panel;
+    private JLayeredPane panel;
     private JComboBox selDificultad;
     private JButton[][] tablero;
-    private int[][] casillas1 = new int[8][8], casillas2 = new int[8][8];
+    private Casillas[][] matriz1 = new Casillas[8][8], matriz2 = new Casillas[8][8];
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
             botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver;
@@ -41,9 +42,9 @@ public class Battleship extends JFrame implements ActionListener {
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
     int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado, id2, maxBarcos = 0,
-            barcos = 1, barcos2 = 1, opac = 255, jugador = 1;
+            barcos = 1, barcos2 = 1, opac = 230, jugador = 1;
     byte dif;
-    boolean error = false, inicio = false;
+    boolean error = false, inicio = false, random = false;
     Font fuente;
 
     //Creacion de Ventana
@@ -72,7 +73,7 @@ public class Battleship extends JFrame implements ActionListener {
     }
 
     private void colocarPanel() {
-        panel = new JPanel();
+        panel = new JLayeredPane();
         panel.setLayout(null);
         this.add(panel);
     }
@@ -118,9 +119,15 @@ public class Battleship extends JFrame implements ActionListener {
         panel.setVisible(true);
 
         barcos = 1;
-        for (int[] casilla : casillas1) {
-            for (int borrador = 0; borrador < casilla.length; borrador++) {
-                casilla[borrador] = 0;
+        for (int casilla = 0; casilla < 8; casilla++) {
+            for (int borrador = 0; borrador < 8; borrador++) {
+                if (matriz1[casilla][borrador] != null) {
+                    matriz1[casilla][borrador].reiniciar();
+                }
+
+                if (matriz2[casilla][borrador] != null) {
+                    matriz2[casilla][borrador].reiniciar();
+                }
             }
         }
 
@@ -409,40 +416,70 @@ public class Battleship extends JFrame implements ActionListener {
         ActionListener tempo = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                label.setText("Jugador 1\nOrdene los barcos");
                 if (opac > 0) {
                     panel.setVisible(false);
                     panel.remove(label);
-                    label.setForeground(new Color(255, 255, 255, opac));
-                    label.setBackground(new Color(0, 0, 0, opac));
-                    panel.add(label);
+                    label.setForeground(new Color(255, 255, 255, 255));
+                    label.setBackground(new Color(0, 0, 0, 255));
+                    panel.add(label, JLayeredPane.DRAG_LAYER);
                     panel.setVisible(true);
-                    opac -= 5;
+                    opac -= 2;
+                }
+
+                if (opac < 1) {
+                    _timer.stop();
+                    panel.removeAll();
+                    panel.setVisible(false);
+                    Tablero();
+                    opac = 200;
                 }
 
             }
         };
 
-        _timer = new Timer(3000, tempo);
+        _timer = new Timer(2, tempo);
         _timer.start();
-
-        if (opac < 5) {
-            _timer.stop();
-        }
 
     }
 
     private void Juego() {
         label = new JLabel();
-        label.setBounds(100, 425, 700, 200);
-        label.setOpaque(true);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(fuente.deriveFont(30f));
-        label.setForeground(new Color(255, 255, 255, opac));
-        label.setBackground(new Color(0, 0, 0, 170));
-        label.setText("Jugador " + jugador + ": Ordene los barcos");
-        panel.add(label);
-        jugador1();
+        if (!inicio) {
+            if (opac > 0) {
+                panel.setVisible(false);
+                label.setBounds(100, 300, 700, 200);
+                label.setOpaque(true);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                label.setFont(fuente.deriveFont(30f));
+                label.setForeground(new Color(255, 255, 255, 255));
+                label.setBackground(new Color(0, 0, 0, 180));
+                label.setText("Jugador " + jugador + ": Ordene los barcos");
+                panel.add(label, JLayeredPane.DRAG_LAYER);
+                panel.setVisible(true);
+            }
+            if (opac > 0) {
+                jugador1();
+            }
+        } else {
+            
+            if (opac > 0) {
+                panel.setVisible(false);
+                label.setBounds(100, 300, 700, 200);
+                label.setOpaque(true);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                label.setFont(fuente.deriveFont(30f));
+                label.setForeground(new Color(255, 255, 255, 255));
+                label.setBackground(new Color(0, 0, 0, 180));
+                label.setText("Jugador " + jugador + ": Ataca");
+                panel.add(label, JLayeredPane.DRAG_LAYER);
+                panel.setVisible(true);
+            }
+            if (opac > 0) {
+                jugador1();
+            }
+            
+        }
+
         Tablero();
         switch (dif) {
             case 0:
@@ -466,18 +503,24 @@ public class Battleship extends JFrame implements ActionListener {
         tablero = new JButton[8][8];
         panel.setVisible(true);
 
+        ImageIcon fondoJuego = new ImageIcon("FondosJuego/Fondo.jpg");
+        etiquetaFondo2 = new JLabel();
+        etiquetaFondo2.setBounds(0, 0, 925, 950);
+        etiquetaFondo2.setIcon(new ImageIcon(fondoJuego.getImage().getScaledInstance(etiquetaFondo2.getWidth(), etiquetaFondo2.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaFondo2, Integer.valueOf(0));
         int x = 20, y = 20;
         for (int fila = 0; fila < tablero.length; fila++) {
             for (int columna = 0; columna < tablero[fila].length; columna++) {
                 tablero[fila][columna] = new JButton();
+                tablero[fila][columna].setOpaque(true);
                 tablero[fila][columna].setBounds(x, y, 110, 110);
-                tablero[fila][columna].setBackground(Color.BLUE);
+                tablero[fila][columna].setIcon(fondoJuego);
                 tablero[fila][columna].setForeground(new Color(0, 0, 0, 0));
                 String filas = Integer.toString(fila);
                 String columnas = Integer.toString(columna);
                 tablero[fila][columna].setText(filas + columnas);
                 tablero[fila][columna].addActionListener(this);
-                panel.add(tablero[fila][columna]);
+                panel.add(tablero[fila][columna], Integer.valueOf(1));
                 x += 110;
             }
             x = 20;
@@ -504,7 +547,7 @@ public class Battleship extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent ae) {
                 panel.setVisible(false);
                 panel.removeAll();
-                creacionDeUsuario();
+                Juego();
             }
         };
 
@@ -757,8 +800,8 @@ public class Battleship extends JFrame implements ActionListener {
 
         if (!inicio) {
             if (jugador == 1) {
-                if (casillas1[fila][columna] == 0 && barcos <= maxBarcos) {
-                    casillas1[fila][columna] = barcos;
+                if (matriz1[fila][columna] == null && barcos <= maxBarcos) {
+                    matriz1[fila][columna] = new Casillas(barcos, random);
                     barcos++;
                 }
                 if (barcos > maxBarcos) {
@@ -771,23 +814,48 @@ public class Battleship extends JFrame implements ActionListener {
                 }
             } else {
 
-                if (casillas2[fila][columna] == 0 && barcos2 <= maxBarcos) {
-                    casillas2[fila][columna] = barcos2;
+                if (matriz2[fila][columna] == null && barcos2 <= maxBarcos) {
+                    matriz2[fila][columna] = new Casillas(barcos2, random);
                     barcos2++;
                 }
                 if (barcos2 > maxBarcos) {
 
                     inicio = true;
                     jugador = 1;
+                    Juego();
 
                 }
 
             }
-            
+
         } else {
-            
-            
-            
+
+            if (matriz2[fila][columna] != null && jugador == 1) {
+
+                matriz2[fila][columna].bomba();
+                jugador = 2;
+                Juego();
+
+            } else if (matriz2[fila][columna] == null && jugador == 1) {
+
+                System.out.println("fallaste");
+                jugador = 2;
+                Juego();
+
+            } else if (matriz1[fila][columna] != null && jugador == 2) {
+
+                matriz1[fila][columna].bomba();
+                jugador = 1;
+                Juego();
+
+            } else if (matriz1[fila][columna] == null && jugador == 2) {
+
+                System.out.println("fallaste");
+                jugador = 1;
+                Juego();
+
+            }
+
         }
 
     }
