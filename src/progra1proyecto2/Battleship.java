@@ -70,8 +70,8 @@ public class Battleship extends JFrame implements ActionListener {
 
     private void iniciarComponentes() {
         colocarPanel();
-        //menuInicio();
-        menuPerfil();
+        menuInicio();
+        //menuPerfil();
     }
 
     private void colocarPanel() {
