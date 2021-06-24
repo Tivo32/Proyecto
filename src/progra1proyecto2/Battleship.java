@@ -32,9 +32,10 @@ public class Battleship extends JFrame implements ActionListener {
     private Casillas[][] matriz1 = new Casillas[8][8], matriz2 = new Casillas[8][8];
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
-            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver;
+            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVerDatos, 
+            botonModificarDatos, botonEliminarCuenta, botonRegresarMPerfil;
     private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label;
+            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
     ArrayList<Player> historial = new ArrayList<>();
@@ -70,6 +71,7 @@ public class Battleship extends JFrame implements ActionListener {
     private void iniciarComponentes() {
         colocarPanel();
         menuInicio();
+        //menuPerfil();
     }
 
     private void colocarPanel() {
@@ -377,6 +379,112 @@ public class Battleship extends JFrame implements ActionListener {
         panel.setVisible(true);
 
     }
+    
+    private void menuPerfil(){
+        panel.setVisible(true);
+        
+        tituloPerfil = new JLabel("PERFIL", SwingConstants.CENTER);
+        tituloPerfil.setBounds(200, 150, 520, 100);
+        tituloPerfil.setForeground(Color.WHITE);
+        tituloPerfil.setFont(fuente.deriveFont(50f));
+        panel.add(tituloPerfil);
+        
+        botonVerDatos = new JButton("VER MIS DATOS");
+        botonVerDatos.setFont(fuente.deriveFont(30f));
+        botonVerDatos.setBounds(230, 295, 450, 80);
+        panel.add(botonVerDatos);
+        
+        botonModificarDatos = new JButton("MODIFICAR MIS DATOS");
+        botonModificarDatos.setFont(fuente.deriveFont(30f));
+        botonModificarDatos.setBounds(230, 405, 450, 80);
+        panel.add(botonModificarDatos);
+        
+        botonEliminarCuenta = new JButton("ELIMINAR MI CUENTA");
+        botonEliminarCuenta.setFont(fuente.deriveFont(30f));
+        botonEliminarCuenta.setBounds(230, 515, 450, 80);
+        panel.add(botonEliminarCuenta);
+        
+        botonVolver = new JButton("VOLVER");
+        botonVolver.setFont(fuente.deriveFont(30f));
+        botonVolver.setBounds(230, 625, 450, 80);
+        panel.add(botonVolver);
+                    
+        cuadradoMI = new JLabel();
+        cuadradoMI.setBounds(200, 260, 520, 480);
+        cuadradoMI.setOpaque(true);
+        cuadradoMI.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 150, 520, 100);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
+
+        ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
+        etiquetaFondo1 = new JLabel();
+        etiquetaFondo1.setBounds(0, 0, 925, 950);
+        etiquetaFondo1.setIcon(new ImageIcon(fondo1.getImage().getScaledInstance(etiquetaFondo1.getWidth(), etiquetaFondo1.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaFondo1);
+        
+        oyentesDeAccionMenuPerfil();
+    }
+    
+    private void menuMisDatos(){
+        panel.setVisible(true);
+        
+        tituloPerfil = new JLabel("MIS DATOS", SwingConstants.CENTER);
+        tituloPerfil.setBounds(200, 150, 520, 100);
+        tituloPerfil.setForeground(Color.WHITE);
+        tituloPerfil.setFont(fuente.deriveFont(50f));
+        panel.add(tituloPerfil);
+        
+        cuadradoMI = new JLabel();
+        cuadradoMI.setBounds(200, 260, 520, 480);
+        cuadradoMI.setOpaque(true);
+        cuadradoMI.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 150, 520, 100);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
+        
+        ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
+        etiquetaFondo1 = new JLabel();
+        etiquetaFondo1.setBounds(0, 0, 925, 950);
+        etiquetaFondo1.setIcon(new ImageIcon(fondo1.getImage().getScaledInstance(etiquetaFondo1.getWidth(), etiquetaFondo1.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaFondo1);
+    }
+    
+    private void menuModificarDatos(){
+        panel.setVisible(true);
+        
+        tituloPerfil = new JLabel("MIS DATOS", SwingConstants.CENTER);
+        tituloPerfil.setBounds(200, 150, 520, 100);
+        tituloPerfil.setForeground(Color.WHITE);
+        tituloPerfil.setFont(fuente.deriveFont(50f));
+        panel.add(tituloPerfil);
+        
+        cuadradoMI = new JLabel();
+        cuadradoMI.setBounds(200, 260, 520, 480);
+        cuadradoMI.setOpaque(true);
+        cuadradoMI.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 150, 520, 100);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
+        
+        ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
+        etiquetaFondo1 = new JLabel();
+        etiquetaFondo1.setBounds(0, 0, 925, 950);
+        etiquetaFondo1.setIcon(new ImageIcon(fondo1.getImage().getScaledInstance(etiquetaFondo1.getWidth(), etiquetaFondo1.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(etiquetaFondo1);
+    }
 
     private void retador() {
         panel.setVisible(true);
@@ -606,7 +714,17 @@ public class Battleship extends JFrame implements ActionListener {
                 Reportes();
             }
         };
+        
+        ActionListener tocarPerfil = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPerfil();
+            }
+        };
 
+        botonPerfil.addActionListener(tocarPerfil);
         botonReportes.addActionListener(tocarReferencias);
         botonSalirMP.addActionListener(tocarSalirMP);
         botonConfig.addActionListener(tocarConfig);
@@ -779,6 +897,49 @@ public class Battleship extends JFrame implements ActionListener {
 
         ingresarContra.addActionListener(tocarBotonCrear);
         botonAceptarCrearUsuario.addActionListener(tocarBotonCrear);
+    }
+    
+    private void oyentesDeAccionMenuPerfil(){
+        ActionListener tocarBotonVerMisDatos = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuMisDatos();
+            }
+        };
+        
+        ActionListener tocarBotonModificarDatos = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuModificarDatos();
+            }
+        };
+        
+        ActionListener tocarBotonEliminarCuenta = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+            }
+        };
+        
+        ActionListener tocarBotonVolver = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPrincipal();
+            }
+        };
+        
+        botonVerDatos.addActionListener(tocarBotonVerMisDatos);
+        botonModificarDatos.addActionListener(tocarBotonModificarDatos);
+        botonEliminarCuenta.addActionListener(tocarBotonEliminarCuenta);
+        botonVolver.addActionListener(tocarBotonVolver);        
+                
     }
 
     public void imprimirRanking() {
