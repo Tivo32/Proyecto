@@ -18,7 +18,6 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -28,7 +27,7 @@ public class Battleship extends JFrame implements ActionListener {
     //Declarar variables
     private Timer _timer;
     private JLayeredPane panel;
-    private JComboBox selDificultad;
+    private JComboBox selDificultad, selModo;
     private JButton[][] tablero;
     private Casillas[][] matriz1 = new Casillas[8][8], matriz2 = new Casillas[8][8];
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
@@ -41,9 +40,10 @@ public class Battleship extends JFrame implements ActionListener {
     ArrayList<Player> historial = new ArrayList<>();
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
-    int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado, id2, maxBarcos = 0,
-            barcos = 1, barcos2 = 1, opac = 230, jugador = 1;
-    byte dif;
+    String[] modos = {"TUTORIAL", "ARCADE"};
+    int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado, id2,
+            opac = 230, modo = 255, hundidos = 0, hundidos2 = 0;
+    byte dif = 0, jugador = 1, barcos = 1, barcos2 = 1, maxBarcos = 0;
     boolean error = false, inicio = false, random = false;
     Font fuente;
 
@@ -191,6 +191,11 @@ public class Battleship extends JFrame implements ActionListener {
         gamemode.setForeground(Color.white);
         gamemode.setFont(fuente.deriveFont(30f));
         panel.add(gamemode);
+        
+        selModo = new JComboBox(modos);
+        selModo.setBounds(550, 515, 250, 65);
+        selModo.setFont(fuente.deriveFont(30f));
+        panel.add(selModo);
 
         botonSalirC = new JButton("VOLVER");
         botonSalirC.setBounds(230, 650, 450, 80);
@@ -514,8 +519,8 @@ public class Battleship extends JFrame implements ActionListener {
                 tablero[fila][columna] = new JButton();
                 tablero[fila][columna].setOpaque(true);
                 tablero[fila][columna].setBounds(x, y, 110, 110);
-                tablero[fila][columna].setIcon(fondoJuego);
-                tablero[fila][columna].setForeground(new Color(0, 0, 0, 0));
+                tablero[fila][columna].setForeground(new Color(250, 250, 250, modo));
+                tablero[fila][columna].setBackground(new Color(0, 0, 255, 230));
                 String filas = Integer.toString(fila);
                 String columnas = Integer.toString(columna);
                 tablero[fila][columna].setText(filas + columnas);
@@ -547,7 +552,7 @@ public class Battleship extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent ae) {
                 panel.setVisible(false);
                 panel.removeAll();
-                Juego();
+                creacionDeUsuario();
             }
         };
 
@@ -615,6 +620,14 @@ public class Battleship extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 dif = (byte) selDificultad.getSelectedIndex();
+                switch (selModo.getSelectedIndex()) {
+                    case 0:
+                        modo = 255;
+                        break;
+                    case 1:
+                        modo = 0;
+                        break;
+                }
                 panel.setVisible(false);
                 panel.removeAll();
                 menuPrincipal();
@@ -832,7 +845,7 @@ public class Battleship extends JFrame implements ActionListener {
 
             if (matriz2[fila][columna] != null && jugador == 1) {
 
-                matriz2[fila][columna].bomba();
+                hundidos = matriz2[fila][columna].bomba(hundidos);
                 jugador = 2;
                 Juego();
 
@@ -844,7 +857,7 @@ public class Battleship extends JFrame implements ActionListener {
 
             } else if (matriz1[fila][columna] != null && jugador == 2) {
 
-                matriz1[fila][columna].bomba();
+                hundidos2 = matriz1[fila][columna].bomba(hundidos2);
                 jugador = 1;
                 Juego();
 
@@ -854,6 +867,16 @@ public class Battleship extends JFrame implements ActionListener {
                 jugador = 1;
                 Juego();
 
+            }
+            
+            if (hundidos == maxBarcos || hundidos2 == maxBarcos) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPrincipal();
+                hundidos = hundidos2 = 0;
+                _timer.stop();
+                opac = 230;
+                inicio = false;
             }
 
         }

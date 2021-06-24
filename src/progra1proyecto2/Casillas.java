@@ -37,7 +37,7 @@ public class Casillas {
 
     }
 
-    public void bomba() {
+    public int bomba(int hundidos) {
 
         if (barco != 0) {
             if (vida > 0) {
@@ -47,10 +47,12 @@ public class Casillas {
             if (vida == 0) {
                 System.out.println("Barco destruido");
                 barco = 0;
+                hundidos++;
             }
         } else {
             System.out.println("fallaste");
         }
+        return hundidos;
         
 
     }
