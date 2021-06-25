@@ -2,8 +2,6 @@ package progra1proyecto2;
 
 // Steve Rivera, Carlos Nuñez, José Rene Girard
 import java.awt.Color;
-import static java.awt.Component.CENTER_ALIGNMENT;
-import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
@@ -1087,10 +1085,6 @@ public class Battleship extends JFrame implements ActionListener {
                 boolean usuarioUsado = false;
                 if (!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))) {
                     if (ingresarUsuario.getText().contains(" ") || ingresarContra.getText().contains(" ")) {
-                        panel.setVisible(false);
-                        panel.removeAll();
-                        creacionDeUsuario();
-
                         errorEspacios1.setText("El nombre y la contraseña");
                         errorEspacios2.setText("no pueden contener espacios");
                         errorEspacios1.setVisible(true);
@@ -1109,13 +1103,10 @@ public class Battleship extends JFrame implements ActionListener {
                             jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
                             //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
                             //System.out.println(jugadores.get(0).nombreUsuario);
-                             panel.setVisible(false);
+                            panel.setVisible(false);
                             panel.removeAll();
                             menuInicio();
                         }else{
-                            panel.setVisible(false);
-                            panel.removeAll();
-                            creacionDeUsuario();
                             
                             errorEspacios1.setText("El nombre de usuario");
                             errorEspacios2.setText("ya está en uso");
@@ -1255,7 +1246,22 @@ public class Battleship extends JFrame implements ActionListener {
                         }
                         if (verificarNombre == 0) {
                             jugadores.get(idIniciado).setNombreUsuario(ingresarUsuario.getText());
+                            panel.setVisible(false);
+                            panel.removeAll();
+                            menuPerfil();
+                        }else{
+                            errorEspacios1.setText("El nombre de usuario");
+                            errorEspacios2.setText("ya está en uso.");
+                            errorEspacios1.setVisible(true);
+                            errorEspacios2.setVisible(true);
+                            cuadradoMI2.setVisible(true);
                         }
+                    }else{
+                        errorEspacios1.setText("El nombre y la contraseña");
+                        errorEspacios2.setText("no pueden contener espacios");
+                        errorEspacios1.setVisible(true);
+                        errorEspacios2.setVisible(true);
+                        cuadradoMI2.setVisible(true);
                     }
                 }
             }
@@ -1267,6 +1273,15 @@ public class Battleship extends JFrame implements ActionListener {
                 if (!(ingresarContra.getText().equals(""))) {
                     if (!(ingresarContra.getText().contains(" "))) {
                         jugadores.get(idIniciado).setContraseña(ingresarContra.getText());
+                        panel.setVisible(false);
+                        panel.removeAll();
+                        menuPerfil();
+                    }else{
+                        errorEspacios1.setText("El nombre y la contraseña");
+                        errorEspacios2.setText("no pueden contener espacios");
+                        errorEspacios1.setVisible(true);
+                        errorEspacios2.setVisible(true);
+                        cuadradoMI2.setVisible(true);
                     }
                 }
             }
