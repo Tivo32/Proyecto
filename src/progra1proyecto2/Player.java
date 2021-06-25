@@ -33,28 +33,26 @@ public class Player {
         contraseña = contra;
     }
 
-    public void SetPuntos(int Score) {
-        this.puntos = Score;
+    public void setPuntos(int Score) {
+        this.puntos += Score;
     }
 
     public int getPuntos() {
         return puntos;
     }
     
-    public void setOracionHistorial(byte ans){
+    public String setOracionHistorial(byte ans, String nombre2){
         String oracion;
          switch (ans) {
 
             case 0:
-                oracion= "a Ganado contra";
+                oracion= nombreUsuario + "a ganado contra" + nombre2;
 
             case 1:
-
-                oracion ="a Perdido contra";
+                oracion= nombreUsuario + "a perdido contra" + nombre2;
 
             case 2:
-
-                oracion ="se ha Retirado contra";
+                oracion= nombreUsuario + "se ha retirado contra" + nombre2;
 
             default:
                oracion = null;
@@ -67,6 +65,7 @@ public class Player {
             historial.remove(0);
             historial.add(oracion);
         } 
+        return oracion;
     }
     
     public void imprimirHistorial() {
