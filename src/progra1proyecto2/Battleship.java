@@ -126,11 +126,11 @@ public class Battleship extends JFrame implements ActionListener {
         for (int casilla = 0; casilla < 8; casilla++) {
             for (int borrador = 0; borrador < 8; borrador++) {
                 if (matriz1[casilla][borrador] != null) {
-                    matriz1[casilla][borrador].reiniciar();
+                    matriz1[casilla][borrador] = null;
                 }
 
                 if (matriz2[casilla][borrador] != null) {
-                    matriz2[casilla][borrador].reiniciar();
+                    matriz2[casilla][borrador] = null;
                 }
             }
         }
@@ -1413,15 +1413,18 @@ public class Battleship extends JFrame implements ActionListener {
                             filas[columnas].setEnabled(false);
                         }
                     }
-                    _timer.start();
                     jugadores.get(id2).setOracionHistorial((byte) 0, jugadores.get(idIniciado).getNombreUsuario());
                 }
                 
                 panel.setVisible(false);
                 panel.removeAll();
                 menuPrincipal();
-                hundidos = hundidos2 = 0;
+                hundidos = 0;
+                hundidos2 = 0;
+                barcos = 1;
+                barcos2 = 1;
                 _timer.stop();
+                jugador = 1;
                 inicio = false;
 
             }
