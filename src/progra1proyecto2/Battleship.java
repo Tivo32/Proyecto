@@ -390,7 +390,7 @@ public class Battleship extends JFrame implements ActionListener {
             printRanking[control] = new JLabel((control+1)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
             printRanking[control].setBounds(x, y, 355, 100);
             printRanking[control].setForeground(Color.WHITE);
-            printRanking[control].setFont(fuente.deriveFont(30f));
+            printRanking[control].setFont(fuente.deriveFont(35f));
             panel.add(printRanking[control]);
             y+=100;
             
