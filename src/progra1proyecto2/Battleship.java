@@ -384,22 +384,24 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.setBounds(230, 720, 450, 80);
         panel.add(botonVolver);
         
-        for(int control=9, control2=1, x=130, y=170; control>=0; control--, control2++){
+        for(int control=jugadores.size()-1, control2=1, x=130, y=170; control>=0; control--){
             actualizarRanking();
             JLabel printRanking[] = new JLabel[jugadores.size()];
             
-            if(ranking[control]!=null){
+            if(control < 10){
                 printRanking[control] = new JLabel((control2)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
                 printRanking[control].setBounds(x, y, 355, 100);
                 printRanking[control].setForeground(Color.WHITE);
-                printRanking[control].setFont(fuente.deriveFont(30f));
+                printRanking[control].setFont(fuente.deriveFont(32f));
                 panel.add(printRanking[control]);
                 y+=100;
             
                 if(control==5) {
                     x+=350;
                     y=170;
-                }//a
+                }
+                
+                control2++;
             }
         }
         
