@@ -32,14 +32,15 @@ public class Battleship extends JFrame implements ActionListener {
     private Casillas[][] matriz1 = new Casillas[8][8], matriz2 = new Casillas[8][8];
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
-            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVolverR, botonVerDatos,
+            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVerDatos, 
             botonModificarDatos, botonEliminarCuenta, botonModificarNombre, botonModificarContra, botonSi, botonNo;
     private JLabel cuadradoMI, cuadradoMI2, cuadradoMI3, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil,
-            etiquetaNombre, etiquetaContra, etiquetaPuntos, etiquetaConfirmar;
+            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil, 
+            etiquetaNombre, etiquetaContra, etiquetaPuntos, etiquetaConfirmar, tituloRanking;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
     ArrayList<Player> historial = new ArrayList<>();
+    Player ranking[];
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
     String[] modos = {"TUTORIAL", "ARCADE"};
@@ -72,7 +73,7 @@ public class Battleship extends JFrame implements ActionListener {
     private void iniciarComponentes() {
         colocarPanel();
         menuInicio();
-        //menuPerfil();
+        //menuRanking();
     }
 
     private void colocarPanel() {
@@ -371,22 +372,49 @@ public class Battleship extends JFrame implements ActionListener {
     private void menuRanking() {
         panel.setVisible(true);
 
-        botonVolverR = new JButton("VOLVER");
-        botonVolverR.setBounds(0, 0, 350, 80);
-        botonVolverR.setFont(fuente.deriveFont(30f));
-        panel.add(botonVolverR);
-
+        tituloRanking = new JLabel("RANKING: ", SwingConstants.CENTER);
+        tituloRanking.setBounds(100, 50, 710, 100);
+        tituloRanking.setForeground(Color.WHITE);
+        tituloRanking.setFont(fuente.deriveFont(50f));
+        panel.add(tituloRanking);
+        
+        botonVolver = new JButton("VOLVER");
+        botonVolver.setFont(fuente.deriveFont(30f));
+        botonVolver.setBounds(230, 720, 450, 80);
+        panel.add(botonVolver);
+        
+        for(int control=0, x=130, y=170; control<jugadores.size(); control++){
+            actualizarRanking();
+            JLabel printRanking[] = new JLabel[jugadores.size()];
+            
+            printRanking[control] = new JLabel((control+1)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
+            printRanking[control].setBounds(x, y, 355, 100);
+            printRanking[control].setForeground(Color.WHITE);
+            printRanking[control].setFont(fuente.deriveFont(35f));
+            panel.add(printRanking[control]);
+            y+=100;
+            
+            if(control==4) {
+                x+=350;
+                y=170;
+            }
+            
+            if(control==9)
+                break;
+            
+        }
+        
         cuadradoMI = new JLabel();
-        cuadradoMI.setBounds(200, 260, 620, 580);
+        cuadradoMI.setBounds(100, 160, 710, 680);
         cuadradoMI.setOpaque(true);
         cuadradoMI.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI);
-
-        ImageIcon titulo = new ImageIcon("titulo.png");
-        etiquetaTitulo = new JLabel();
-        etiquetaTitulo.setBounds(160, -20, 600, 300);
-        etiquetaTitulo.setIcon(new ImageIcon(titulo.getImage().getScaledInstance(etiquetaTitulo.getWidth(), etiquetaTitulo.getHeight(), Image.SCALE_SMOOTH)));
-        panel.add(etiquetaTitulo);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(100, 50, 710, 100);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
 
         ImageIcon fondo2 = new ImageIcon("fondo2.jpg");
         etiquetaFondo2 = new JLabel();
@@ -400,24 +428,26 @@ public class Battleship extends JFrame implements ActionListener {
     private void menuHistorial() {
         panel.setVisible(true);
 
-        botonVolverR = new JButton("VOLVER");
-        botonVolverR.setBounds(0, 0, 350, 80);
-        botonVolverR.setFont(fuente.deriveFont(30f));
-        panel.add(botonVolverR);
-
+    
+        botonVolver = new JButton("VOLVER");
+        botonVolver.setBounds(0, 0, 350, 80);
+        botonVolver.setFont(fuente.deriveFont(30f));
+        panel.add(botonVolver);
+        
         for (Player historial1 : historial) {
-            if (historial.size() < 1) {
-
-                botonVolverR = new JButton("VOLVER");
-                botonVolverR.setBounds(0, 0, 350, 80);
-                botonVolverR.setFont(fuente.deriveFont(30f));
-                panel.add(botonVolverR);
-            } else {
-                botonVolverR = new JButton("VOLVER");
-                botonVolverR.setBounds(0, 0, 350, 80);
-                botonVolverR.setFont(fuente.deriveFont(30f));
-                panel.add(botonVolverR);
-
+            if(historial.size()<1){
+                
+                botonVolver = new JButton("VOLVER");
+                botonVolver.setBounds(0, 0, 350, 80);
+                botonVolver.setFont(fuente.deriveFont(30f));
+                panel.add(botonVolver);
+            }
+            else{
+                botonVolver = new JButton("VOLVER");
+                botonVolver.setBounds(0, 0, 350, 80);
+                botonVolver.setFont(fuente.deriveFont(30f));
+                panel.add(botonVolver);        
+                
                 cuadradoMI = new JLabel(jugadores.get(idIniciado).historial.get(0));
                 cuadradoMI.setBounds(150, 260, 420, 380);
                 cuadradoMI.setOpaque(true);
@@ -971,8 +1001,8 @@ public class Battleship extends JFrame implements ActionListener {
             }
         };
 
-        botonVolverR.addActionListener(tocarVolverR);
-
+        botonVolver.addActionListener(tocarVolverR);
+      
     }
 
     private void oyentesDeAccionMHistorial() {
@@ -986,8 +1016,8 @@ public class Battleship extends JFrame implements ActionListener {
             }
         };
 
-        botonVolverR.addActionListener(tocarVolverR);
-
+        botonVolver.addActionListener(tocarVolverR);
+      
     }
 
     private void oyentesDeAccionIniciarSesion() {
@@ -1212,27 +1242,24 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.addActionListener(tocarVolver);
     }
 
-    public void imprimirRanking() {
-        String orden;
-        String ranking[] = new String[jugadores.size()];
+    public void actualizarRanking() {
+        Player orden;
+        ranking = new Player[jugadores.size()];
 
         for (int control = 0; control < jugadores.size(); control++) {
-            ranking[control] = jugadores.get(control).getNombreUsuario();
+            ranking[control] = jugadores.get(control);
         }
 
         for (int control = 1; control < jugadores.size(); control++) {
-            for (int control2 = 0; control2 < jugadores.size(); control++) {
-                if (jugadores.get(control).getPuntos() > jugadores.get(control + 1).getPuntos()) {
-                    orden = ranking[control];
-                    ranking[control] = ranking[control + 1];
-                    ranking[control + 1] = orden;
+            for (int control2 = 0; control2 < jugadores.size() - control; control2++) {
+                if (jugadores.get(control2).getPuntos() > jugadores.get(control2 + 1).getPuntos()) {
+                    orden = ranking[control2];
+                    ranking[control2] = ranking[control2 + 1];
+                    ranking[control2 + 1] = orden;
                 }
             }
         }
-
-        for (int control1 = 1, control2 = ranking.length; control2 > -1; control2--, control1++) {
-            System.out.println(control1 + ". " + ranking[control2]);
-        }
+        
     }
 
     @Override
