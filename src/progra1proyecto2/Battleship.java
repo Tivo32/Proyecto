@@ -313,8 +313,8 @@ public class Battleship extends JFrame implements ActionListener {
         errorEspacios2 = new JLabel("", SwingConstants.CENTER);
         errorEspacios1.setBounds(160, 670, 600, 100);
         errorEspacios2.setBounds(160, 700, 600, 100);
-        errorEspacios1.setFont(fuente.deriveFont(25f));
-        errorEspacios2.setFont(fuente.deriveFont(25f));
+        errorEspacios1.setFont(fuente.deriveFont(30f));
+        errorEspacios2.setFont(fuente.deriveFont(30f));
         errorEspacios1.setForeground(Color.RED);
         errorEspacios2.setForeground(Color.RED);
         panel.add(errorEspacios1);
@@ -638,6 +638,19 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.setFont(fuente.deriveFont(30f));
         botonVolver.setBounds(230, 625, 450, 80);
         panel.add(botonVolver);
+        
+        errorEspacios1 = new JLabel("", SwingConstants.CENTER);
+        errorEspacios2 = new JLabel("", SwingConstants.CENTER);
+        errorEspacios1.setBounds(160, 725, 600, 100);
+        errorEspacios2.setBounds(160, 765, 600, 100);
+        errorEspacios1.setFont(fuente.deriveFont(30f));
+        errorEspacios2.setFont(fuente.deriveFont(30f));
+        errorEspacios1.setForeground(Color.RED);
+        errorEspacios2.setForeground(Color.RED);
+        panel.add(errorEspacios1);
+        panel.add(errorEspacios2);
+        errorEspacios1.setVisible(false);
+        errorEspacios2.setVisible(false);
 
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 260, 520, 480);
@@ -650,6 +663,13 @@ public class Battleship extends JFrame implements ActionListener {
         cuadradoMI2.setOpaque(true);
         cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI2);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 750, 520, 90);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
+        cuadradoMI2.setVisible(false);
 
         ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
         etiquetaFondo1 = new JLabel();
