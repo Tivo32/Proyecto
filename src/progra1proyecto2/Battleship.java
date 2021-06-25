@@ -398,7 +398,7 @@ public class Battleship extends JFrame implements ActionListener {
                 if(control==5) {
                     x+=350;
                     y=170;
-                }
+                }//a
             }
         }
         
