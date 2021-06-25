@@ -383,25 +383,23 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.setBounds(230, 720, 450, 80);
         panel.add(botonVolver);
         
-        for(int control=0, x=130, y=170; control<jugadores.size(); control++){
+        for(int control=9, control2=1, x=130, y=170; control>=0; control--, control2++){
             actualizarRanking();
             JLabel printRanking[] = new JLabel[jugadores.size()];
             
-            printRanking[control] = new JLabel((control+1)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
-            printRanking[control].setBounds(x, y, 355, 100);
-            printRanking[control].setForeground(Color.WHITE);
-            printRanking[control].setFont(fuente.deriveFont(35f));
-            panel.add(printRanking[control]);
-            y+=100;
+            if(ranking[control]!=null){
+                printRanking[control] = new JLabel((control2)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
+                printRanking[control].setBounds(x, y, 355, 100);
+                printRanking[control].setForeground(Color.WHITE);
+                printRanking[control].setFont(fuente.deriveFont(30f));
+                panel.add(printRanking[control]);
+                y+=100;
             
-            if(control==4) {
-                x+=350;
-                y=170;
+                if(control==5) {
+                    x+=350;
+                    y=170;
+                }
             }
-            
-            if(control==9)
-                break;
-            
         }
         
         cuadradoMI = new JLabel();
@@ -1252,7 +1250,7 @@ public class Battleship extends JFrame implements ActionListener {
 
         for (int control = 1; control < jugadores.size(); control++) {
             for (int control2 = 0; control2 < jugadores.size() - control; control2++) {
-                if (jugadores.get(control2).getPuntos() > jugadores.get(control2 + 1).getPuntos()) {
+                if (jugadores.get(control2).getPuntos() > jugadores.get(control2+1).getPuntos()) {
                     orden = ranking[control2];
                     ranking[control2] = ranking[control2 + 1];
                     ranking[control2 + 1] = orden;
