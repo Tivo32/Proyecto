@@ -500,6 +500,25 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.setFont(fuente.deriveFont(30f));
         botonVolver.setBounds(230, 625, 450, 80);
         panel.add(botonVolver);
+        
+        etiquetaConfirmar = new JLabel("CONFIRMAR", SwingConstants.CENTER);
+        etiquetaConfirmar.setBounds(345, 750, 230, 100);
+        etiquetaConfirmar.setForeground(Color.WHITE);
+        etiquetaConfirmar.setFont(fuente.deriveFont(35f));
+        panel.add(etiquetaConfirmar);
+        etiquetaConfirmar.setVisible(false);
+
+        botonSi = new JButton("SI");
+        botonSi.setFont(fuente.deriveFont(30f));
+        botonSi.setBounds(260, 840, 150, 50);
+        panel.add(botonSi);
+        botonSi.setVisible(false);
+
+        botonNo = new JButton("NO");
+        botonNo.setFont(fuente.deriveFont(30f));
+        botonNo.setBounds(510, 840, 150, 50);
+        panel.add(botonNo);
+        botonNo.setVisible(false);
 
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 260, 520, 480);
@@ -1139,22 +1158,9 @@ public class Battleship extends JFrame implements ActionListener {
                 panel.removeAll();
                 menuPerfil();
 
-                etiquetaConfirmar = new JLabel("CONFIRMAR", SwingConstants.CENTER);
-                etiquetaConfirmar.setBounds(345, 750, 230, 100);
-                etiquetaConfirmar.setForeground(Color.WHITE);
-                etiquetaConfirmar.setFont(fuente.deriveFont(35f));
-                panel.add(etiquetaConfirmar, 2);
-
-                botonSi = new JButton("SI");
-                botonSi.setFont(fuente.deriveFont(30f));
-                botonSi.setBounds(260, 840, 150, 50);
-                panel.add(botonSi, 2);
-
-                botonNo = new JButton("NO");
-                botonNo.setFont(fuente.deriveFont(30f));
-                botonNo.setBounds(510, 840, 150, 50);
-                panel.add(botonNo, 2);
-
+                etiquetaConfirmar.setVisible(true);
+                botonSi.setVisible(true);
+                botonNo.setVisible(true);
                 cuadradoMI3.setVisible(true);
                 botonEliminarCuenta.setEnabled(false);
 
