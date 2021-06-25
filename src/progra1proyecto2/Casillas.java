@@ -13,9 +13,11 @@ public class Casillas {
 
     private int barco;
     private int vida;
+    private boolean movido;
 
     public Casillas(int barco, boolean reposicion) {
-
+        
+        movido = false;
         this.barco = barco;
         if (!reposicion) {
             switch (barco) {
@@ -33,6 +35,7 @@ public class Casillas {
                     vida = 5;
                     break;
             }
+            
         }
 
     }
@@ -73,6 +76,24 @@ public class Casillas {
         barco = 0;
         vida = 0;
 
+    }
+    
+    public void movido() { 
+     
+        movido = true;
+        
+    }
+    
+    public void finalR() {
+        
+        movido = false;
+        
+    }
+    
+    public boolean getMov() {
+        
+        return movido;
+        
     }
 
 }

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,15 +33,15 @@ public class Battleship extends JFrame implements ActionListener {
     private Casillas[][] matriz1 = new Casillas[8][8], matriz2 = new Casillas[8][8];
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
-            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVerDatos, 
+            botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVerDatos,
             botonModificarDatos, botonEliminarCuenta, botonModificarNombre, botonModificarContra, botonSi, botonNo;
     private JLabel cuadradoMI, cuadradoMI2, cuadradoMI3, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil, 
+            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil,
             etiquetaNombre, etiquetaContra, etiquetaPuntos, etiquetaConfirmar, tituloRanking;
     private JLabel[] historiales;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
-    ArrayList<String> historial = new ArrayList<>();
+    ArrayList<String> historial;
     Player ranking[];
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
@@ -378,39 +379,39 @@ public class Battleship extends JFrame implements ActionListener {
         tituloRanking.setForeground(Color.WHITE);
         tituloRanking.setFont(fuente.deriveFont(50f));
         panel.add(tituloRanking);
-        
+
         botonVolver = new JButton("VOLVER");
         botonVolver.setFont(fuente.deriveFont(30f));
         botonVolver.setBounds(230, 720, 450, 80);
         panel.add(botonVolver);
-        
-        for(int control=jugadores.size()-1, control2=1, x=130, y=170; control>=0; control--){
+
+        for (int control = jugadores.size() - 1, control2 = 1, x = 130, y = 170; control >= 0; control--) {
             actualizarRanking();
             JLabel printRanking[] = new JLabel[jugadores.size()];
-            
-            if(control < 10){
-                printRanking[control] = new JLabel((control2)+"- "+ranking[control].getNombreUsuario()+" / "+ranking[control].getPuntos());
+
+            if (control < 10) {
+                printRanking[control] = new JLabel((control2) + "- " + ranking[control].getNombreUsuario() + " / " + ranking[control].getPuntos());
                 printRanking[control].setBounds(x, y, 355, 100);
                 printRanking[control].setForeground(Color.WHITE);
                 printRanking[control].setFont(fuente.deriveFont(32f));
                 panel.add(printRanking[control]);
-                y+=100;
-            
-                if(control==5) {
-                    x+=350;
-                    y=170;
+                y += 100;
+
+                if (control == 5) {
+                    x += 350;
+                    y = 170;
                 }
-                
+
                 control2++;
             }
         }
-        
+
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(100, 160, 710, 680);
         cuadradoMI.setOpaque(true);
         cuadradoMI.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI);
-        
+
         cuadradoMI2 = new JLabel();
         cuadradoMI2.setBounds(100, 50, 710, 100);
         cuadradoMI2.setOpaque(true);
@@ -429,26 +430,28 @@ public class Battleship extends JFrame implements ActionListener {
     private void menuHistorial() {
         panel.setVisible(true);
 
-    
+        historial = new ArrayList();
         botonVolver = new JButton("VOLVER");
         botonVolver.setBounds(230, 720, 450, 80);
         botonVolver.setFont(fuente.deriveFont(30f));
         panel.add(botonVolver);
-        
+
         historial = jugadores.get(idIniciado).getHistorial();
         historiales = new JLabel[historial.size()];
         int medida = 300;
         for (int linea = 0; linea < historial.size(); linea++) {
             historiales[linea] = new JLabel();
             historiales[linea].setText(historial.get(linea));
-            historiales[linea].setFont(fuente.deriveFont(5f));
-            historiales[linea].setBounds(60, medida, 800, 75);
-            historiales[linea].setBackground(new Color(0,0,0,170));
+            historiales[linea].setHorizontalAlignment(SwingConstants.CENTER);
             historiales[linea].setOpaque(true);
+            historiales[linea].setFont(fuente.deriveFont(30f));
+            historiales[linea].setForeground(Color.WHITE);
+            historiales[linea].setBounds(60, medida, 800, 75);
+            historiales[linea].setBackground(new Color(0, 0, 0, 200));
             panel.add(historiales[linea]);
             medida += 75;
         }
-        
+
         jugadores.get(idIniciado).imprimirHistorial();
 
         ImageIcon titulo = new ImageIcon("titulo.png");
@@ -946,6 +949,7 @@ public class Battleship extends JFrame implements ActionListener {
             }
         };
 
+        ingresarUsuario.addActionListener(tocarJugar2);
         botonJugar2.addActionListener(tocarJugar2);
         botonVolver.addActionListener(tocarVolver);
 
@@ -996,7 +1000,7 @@ public class Battleship extends JFrame implements ActionListener {
         };
 
         botonVolver.addActionListener(tocarVolverR);
-      
+
     }
 
     private void oyentesDeAccionMHistorial() {
@@ -1011,7 +1015,7 @@ public class Battleship extends JFrame implements ActionListener {
         };
 
         botonVolver.addActionListener(tocarVolverR);
-      
+
     }
 
     private void oyentesDeAccionIniciarSesion() {
@@ -1246,32 +1250,62 @@ public class Battleship extends JFrame implements ActionListener {
 
         for (int control = 1; control < jugadores.size(); control++) {
             for (int control2 = 0; control2 < jugadores.size() - control; control2++) {
-                if (jugadores.get(control2).getPuntos() > jugadores.get(control2+1).getPuntos()) {
+                if (jugadores.get(control2).getPuntos() > jugadores.get(control2 + 1).getPuntos()) {
                     orden = ranking[control2];
                     ranking[control2] = ranking[control2 + 1];
                     ranking[control2 + 1] = orden;
                 }
             }
         }
-        
+
     }
-    
+
     public void randomize1() {
-        
+
         for (int fila = 0; fila < matriz1.length; fila++) {
             for (int columna = 0; columna < matriz1[fila].length; columna++) {
-                if (matriz1[fila][columna] != null) {
-                    
+                if (matriz1[fila][columna] != null && !matriz1[fila][columna].getMov()) {
+                    Random randomN = new Random();
+                    int random1 = randomN.nextInt(8);
+                    int random2 = randomN.nextInt(8);
+                    matriz1[random1][random2] = matriz1[fila][columna];
+                    matriz1[random1][random2].movido();
+                    matriz1[fila][columna] = null;
                 }
             }
         }
-        
+        for (int fila = 0; fila < matriz1.length; fila++) {
+            for (int columna = 0; columna < matriz1[fila].length; columna++) {
+                if (matriz1[fila][columna] != null) {
+                    matriz1[fila][columna].finalR();
+                }
+            }
+        }
+
     }
-    
+
     public void randomize2() {
-        
-        
-        
+
+        for (Casillas[] matriz21 : matriz2) {
+            for (int columna = 0; columna < matriz21.length; columna++) {
+                if (matriz21[columna] != null && !matriz21[columna].getMov()) {
+                    Random randomN = new Random();
+                    int random1 = randomN.nextInt(8);
+                    int random2 = randomN.nextInt(8);
+                    matriz2[random1][random2] = matriz21[columna];
+                    matriz2[random1][random2].movido();
+                    matriz21[columna] = null;
+                }
+            }
+        }
+        for (Casillas[] matriz21 : matriz2) {
+            for (int columna = 0; columna < matriz21.length; columna++) {
+                if (matriz21[columna] != null) {
+                    matriz21[columna].finalR();
+                }
+            }
+        }
+
     }
 
     @Override
@@ -1353,6 +1387,7 @@ public class Battleship extends JFrame implements ActionListener {
                 }
                 hundidos = matriz2[fila][columna].bomba(hundidos);
                 jugador = 2;
+                randomize2();
                 Juego();
 
             } else if (matriz2[fila][columna] == null && jugador == 1) {
@@ -1401,6 +1436,7 @@ public class Battleship extends JFrame implements ActionListener {
                 }
                 hundidos2 = matriz1[fila][columna].bomba(hundidos2);
                 jugador = 1;
+                randomize1();
                 Juego();
 
             } else if (matriz1[fila][columna] == null && jugador == 2) {
@@ -1429,7 +1465,7 @@ public class Battleship extends JFrame implements ActionListener {
                     }
                     jugadores.get(id2).setOracionHistorial(0, jugadores.get(idIniciado).getNombreUsuario());
                 }
-                
+
                 panel.setVisible(false);
                 panel.removeAll();
                 menuPrincipal();
