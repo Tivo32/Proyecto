@@ -41,7 +41,26 @@ public class Player {
         return puntos;
     }
     
-    public void setOracionHistorial(String oracion){
+    public void setOracionHistorial(byte ans){
+        String oracion;
+         switch (ans) {
+
+            case 0:
+                oracion= "a Ganado contra";
+
+            case 1:
+
+                oracion ="a Perdido contra";
+
+            case 2:
+
+                oracion ="se ha Retirado contra";
+
+            default:
+               oracion = null;
+        }
+
+    
         if(historial.size() < 10)
             historial.add(oracion);
         else{
