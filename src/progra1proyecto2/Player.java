@@ -20,9 +20,17 @@ public class Player {
     public String getNombreUsuario() {
         return nombreUsuario;
     }
+    
+    public void setNombreUsuario(String nombre){
+        nombreUsuario = nombre;
+    }
 
     public String getContraseña() {
         return contraseña;
+    }
+    
+    public void setContraseña(String contra){
+        contraseña = contra;
     }
 
     public void SetPuntos(int Score) {

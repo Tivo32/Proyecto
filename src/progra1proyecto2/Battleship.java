@@ -33,16 +33,17 @@ public class Battleship extends JFrame implements ActionListener {
     private JButton botonIniciarSesion, botonCrearUsuario, botonSalirMI, botonSalirMP, botonJugar2,
             botonAceptarIniciarSesion, botonAceptarCrearUsuario, botonJugar, botonConfig,
             botonReportes, botonPerfil, botonSalirC, botonRanking, botonHistorial, botonVolver, botonVerDatos, 
-            botonModificarDatos, botonEliminarCuenta, botonRegresarMPerfil;
-    private JLabel cuadradoMI, cuadradoMI2, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
-            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil;
+            botonModificarDatos, botonEliminarCuenta, botonModificarNombre, botonModificarContra, botonSi, botonNo;
+    private JLabel cuadradoMI, cuadradoMI2, cuadradoMI3, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
+            gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil, 
+            etiquetaNombre, etiquetaContra, etiquetaPuntos, etiquetaConfirmar;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
     ArrayList<Player> historial = new ArrayList<>();
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
     String[] modos = {"TUTORIAL", "ARCADE"};
-    int controlJugadorCreado = 0, puntos, usuarioCreado = 0, idIniciado, id2,
+    int puntos, idIniciado, id2,
             opac = 230, modo = 255, hundidos = 0, hundidos2 = 0;
     byte dif = 0, jugador = 1, barcos = 1, barcos2 = 1, maxBarcos = 0;
     boolean error = false, inicio = false, random = false;
@@ -88,7 +89,7 @@ public class Battleship extends JFrame implements ActionListener {
         botonIniciarSesion.setFont(fuente.deriveFont(30f));
         panel.add(botonIniciarSesion);
 
-        if (usuarioCreado < 2) {
+        if (jugadores.size() < 2) {
             botonIniciarSesion.setEnabled(false);
         }
 
@@ -138,7 +139,7 @@ public class Battleship extends JFrame implements ActionListener {
         botonJugar.setFont(fuente.deriveFont(30f));
         panel.add(botonJugar);
 
-        botonConfig = new JButton("CONDIGURACIÓN");
+        botonConfig = new JButton("CONFIGURACIÓN");
         botonConfig.setBounds(230, 450, 450, 80);
         botonConfig.setFont(fuente.deriveFont(30f));
         panel.add(botonConfig);
@@ -420,6 +421,13 @@ public class Battleship extends JFrame implements ActionListener {
         cuadradoMI2.setOpaque(true);
         cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI2);
+        
+        cuadradoMI3 = new JLabel();
+        cuadradoMI3.setBounds(200, 770, 520, 140);
+        cuadradoMI3.setOpaque(true);
+        cuadradoMI3.setBackground(new Color(0,0,0,170));
+        panel.add(cuadradoMI3);
+        cuadradoMI3.setVisible(false);
 
         ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
         etiquetaFondo1 = new JLabel();
@@ -439,6 +447,29 @@ public class Battleship extends JFrame implements ActionListener {
         tituloPerfil.setFont(fuente.deriveFont(50f));
         panel.add(tituloPerfil);
         
+        etiquetaNombre = new JLabel("NOMBRE: "+jugadores.get(idIniciado).getNombreUsuario(), SwingConstants.CENTER);
+        etiquetaNombre.setBounds(230, 295, 450, 80);
+        etiquetaNombre.setForeground(Color.WHITE);
+        etiquetaNombre.setFont(fuente.deriveFont(35f));
+        panel.add(etiquetaNombre);
+        
+        etiquetaContra = new JLabel("CONTRASEÑA: "+jugadores.get(idIniciado).getContraseña(), SwingConstants.CENTER);
+        etiquetaContra.setBounds(230, 405, 450, 80);
+        etiquetaContra.setForeground(Color.WHITE);
+        etiquetaContra.setFont(fuente.deriveFont(35f));
+        panel.add(etiquetaContra);
+        
+        etiquetaPuntos = new JLabel("PUNTOS: "+jugadores.get(idIniciado).getPuntos(), SwingConstants.CENTER);
+        etiquetaPuntos.setBounds(230, 515, 450, 80);
+        etiquetaPuntos.setForeground(Color.WHITE);
+        etiquetaPuntos.setFont(fuente.deriveFont(35f));
+        panel.add(etiquetaPuntos);
+        
+        botonVolver = new JButton("VOLVER");
+        botonVolver.setFont(fuente.deriveFont(30f));
+        botonVolver.setBounds(230, 625, 450, 80);
+        panel.add(botonVolver);
+        
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 260, 520, 480);
         cuadradoMI.setOpaque(true);
@@ -456,6 +487,8 @@ public class Battleship extends JFrame implements ActionListener {
         etiquetaFondo1.setBounds(0, 0, 925, 950);
         etiquetaFondo1.setIcon(new ImageIcon(fondo1.getImage().getScaledInstance(etiquetaFondo1.getWidth(), etiquetaFondo1.getHeight(), Image.SCALE_SMOOTH)));
         panel.add(etiquetaFondo1);
+        
+        oyentesDeAccionMenuMisDatos();
     }
     
     private void menuModificarDatos(){
@@ -467,6 +500,33 @@ public class Battleship extends JFrame implements ActionListener {
         tituloPerfil.setFont(fuente.deriveFont(50f));
         panel.add(tituloPerfil);
         
+        ingresarUsuario = new JTextField();
+        ingresarUsuario.setText("INGRESAR NUEVO NOMBRE");
+        ingresarUsuario.setBounds(220, 300, 480, 50);
+        ingresarUsuario.setFont(fuente.deriveFont(30f));
+        panel.add(ingresarUsuario);
+        
+        botonModificarNombre = new JButton("MODIFICAR NOMBRE");
+        botonModificarNombre.setFont(fuente.deriveFont(30f));
+        botonModificarNombre.setBounds(260, 375, 400, 60);
+        panel.add(botonModificarNombre);
+        
+        ingresarContra = new JTextField();
+        ingresarContra.setText("INGRESAR NUEVA CONTRA");
+        ingresarContra.setBounds(220, 460, 480, 50);
+        ingresarContra.setFont(fuente.deriveFont(30f));
+        panel.add(ingresarContra);
+        
+        botonModificarContra = new JButton("MODIFICAR CONTRA");
+        botonModificarContra.setFont(fuente.deriveFont(30f));
+        botonModificarContra.setBounds(260, 535, 400, 60);
+        panel.add(botonModificarContra);
+        
+        botonVolver = new JButton("VOLVER");
+        botonVolver.setFont(fuente.deriveFont(30f));
+        botonVolver.setBounds(230, 625, 450, 80);
+        panel.add(botonVolver);
+        
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 260, 520, 480);
         cuadradoMI.setOpaque(true);
@@ -484,6 +544,8 @@ public class Battleship extends JFrame implements ActionListener {
         etiquetaFondo1.setBounds(0, 0, 925, 950);
         etiquetaFondo1.setIcon(new ImageIcon(fondo1.getImage().getScaledInstance(etiquetaFondo1.getWidth(), etiquetaFondo1.getHeight(), Image.SCALE_SMOOTH)));
         panel.add(etiquetaFondo1);
+
+        oyentesDeAccionModificarDatos();
     }
 
     private void retador() {
@@ -832,16 +894,16 @@ public class Battleship extends JFrame implements ActionListener {
                 //Al tocar boton Aceptar en el menu de iniciar sesion
 
                 if (!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))) {
-                    for (int control = 1; control <= controlJugadorCreado; control++) {
-                        if (jugadores.get(control - 1).nombreUsuario.equals(ingresarUsuario.getText())
-                                && jugadores.get(control - 1).contraseña.equals(ingresarContra.getText())) {
+                    for (int control = 0; control < jugadores.size(); control++) {
+                        if (jugadores.get(control).nombreUsuario.equals(ingresarUsuario.getText())
+                                && jugadores.get(control).contraseña.equals(ingresarContra.getText())) {
                             panel.setVisible(false);
                             panel.removeAll();
                             menuPrincipal();
-                            idIniciado = control - 1;
+                            idIniciado = control;
                             break;
                         } else {
-                            if (control == controlJugadorCreado) {
+                            if (control == jugadores.size()) {
                                 panel.setVisible(false);
                                 panel.removeAll();
                                 menuInicio();
@@ -881,8 +943,6 @@ public class Battleship extends JFrame implements ActionListener {
                             jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
                             //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
                             //System.out.println(jugadores.get(0).nombreUsuario);
-                            usuarioCreado++;
-                            controlJugadorCreado++;
                         }
                         usuarioUsado = false;
 
@@ -923,6 +983,28 @@ public class Battleship extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent ae) {
                 panel.setVisible(false);
                 panel.removeAll();
+                menuPerfil();
+                
+                etiquetaConfirmar = new JLabel("CONFIRMAR", SwingConstants.CENTER);
+                etiquetaConfirmar.setBounds(345, 750, 230, 100);
+                etiquetaConfirmar.setForeground(Color.WHITE);
+                etiquetaConfirmar.setFont(fuente.deriveFont(35f));
+                panel.add(etiquetaConfirmar, 2);
+                
+                botonSi = new JButton("SI");
+                botonSi.setFont(fuente.deriveFont(30f));
+                botonSi.setBounds(260, 840, 150, 50);
+                panel.add(botonSi, 2);
+                
+                botonNo = new JButton("NO");
+                botonNo.setFont(fuente.deriveFont(30f));
+                botonNo.setBounds(510, 840, 150, 50);
+                panel.add(botonNo, 2);
+                
+                cuadradoMI3.setVisible(true);
+                botonEliminarCuenta.setEnabled(false);
+                
+                oyentesDeAccionSiyNo();
             }
         };
         
@@ -940,6 +1022,90 @@ public class Battleship extends JFrame implements ActionListener {
         botonEliminarCuenta.addActionListener(tocarBotonEliminarCuenta);
         botonVolver.addActionListener(tocarBotonVolver);        
                 
+    }
+    
+    private void oyentesDeAccionSiyNo(){
+        ActionListener tocarSi = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                jugadores.remove(idIniciado);
+                panel.setVisible(false);
+                panel.removeAll();
+                menuInicio();
+            }
+        };
+        
+        ActionListener tocarNo = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPerfil();
+            }
+        };
+        
+        botonSi.addActionListener(tocarSi);
+        botonNo.addActionListener(tocarNo);
+    }
+    
+    private void oyentesDeAccionMenuMisDatos(){
+        ActionListener tocarVolver = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPerfil();
+            }
+        };
+        
+        botonVolver.addActionListener(tocarVolver);
+    }
+    
+    private void oyentesDeAccionModificarDatos(){
+        ActionListener tocarModificarNombre = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int verificarNombre=0;
+                
+                if(!(ingresarUsuario.getText().equals(""))) {
+                    if (!(ingresarUsuario.getText().contains(" "))) {
+                        for(int control=0; control<jugadores.size(); control++){
+                            if(jugadores.get(control).getNombreUsuario() != null){
+                                if(jugadores.get(control).getNombreUsuario().equals(ingresarUsuario.getText()))
+                                    verificarNombre++;   
+                            }
+                        }
+                        if(verificarNombre==0){
+                            jugadores.get(idIniciado).setNombreUsuario(ingresarUsuario.getText());
+                        }
+                    }
+                }
+            }
+        };
+        
+        ActionListener tocarModificarContra = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(!(ingresarContra.getText().equals(""))) {
+                    if (!(ingresarContra.getText().contains(" "))) {
+                        jugadores.get(idIniciado).setContraseña(ingresarContra.getText());
+                        }
+                    }
+                }
+        };
+        
+        ActionListener tocarVolver = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.setVisible(false);
+                panel.removeAll();
+                menuPerfil();
+            }
+        };
+        
+        botonModificarNombre.addActionListener(tocarModificarNombre);
+        botonModificarContra.addActionListener(tocarModificarContra);
+        botonVolver.addActionListener(tocarVolver);
     }
 
     public void imprimirRanking() {
