@@ -37,9 +37,10 @@ public class Battleship extends JFrame implements ActionListener {
     private JLabel cuadradoMI, cuadradoMI2, cuadradoMI3, etiquetaFondo1, tituloUsuario, tituloContra, dificultad,
             gamemode, errorEspacios1, errorEspacios2, etiquetaTitulo, etiquetaFondo2, errMessage, label, tituloPerfil, 
             etiquetaNombre, etiquetaContra, etiquetaPuntos, etiquetaConfirmar, tituloRanking;
+    private JLabel[] historiales;
     private JTextField ingresarUsuario, ingresarContra;
     ArrayList<Player> jugadores = new ArrayList<>();
-    ArrayList<Player> historial = new ArrayList<>();
+    ArrayList<String> historial = new ArrayList<>();
     Player ranking[];
     String nombreUsuario, contraseña;
     String[] dificultades = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
@@ -428,32 +429,25 @@ public class Battleship extends JFrame implements ActionListener {
 
     
         botonVolver = new JButton("VOLVER");
-        botonVolver.setBounds(0, 0, 350, 80);
+        botonVolver.setBounds(230, 720, 450, 80);
         botonVolver.setFont(fuente.deriveFont(30f));
         panel.add(botonVolver);
         
-        for (Player historial1 : historial) {
-            if(historial.size()<1){
-                
-                botonVolver = new JButton("VOLVER");
-                botonVolver.setBounds(0, 0, 350, 80);
-                botonVolver.setFont(fuente.deriveFont(30f));
-                panel.add(botonVolver);
-            }
-            else{
-                botonVolver = new JButton("VOLVER");
-                botonVolver.setBounds(0, 0, 350, 80);
-                botonVolver.setFont(fuente.deriveFont(30f));
-                panel.add(botonVolver);        
-                
-                cuadradoMI = new JLabel(jugadores.get(idIniciado).historial.get(0));
-                cuadradoMI.setBounds(150, 260, 420, 380);
-                cuadradoMI.setOpaque(true);
-                cuadradoMI.setBackground(new Color(0, 0, 0, 170));
-                panel.add(cuadradoMI);
-
-            }
+        historial = jugadores.get(idIniciado).getHistorial();
+        historiales = new JLabel[historial.size()];
+        int medida = 300;
+        for (int linea = 0; linea < historial.size(); linea++) {
+            historiales[linea] = new JLabel();
+            historiales[linea].setText(historial.get(linea));
+            historiales[linea].setFont(fuente.deriveFont(5f));
+            historiales[linea].setBounds(60, medida, 800, 75);
+            historiales[linea].setBackground(new Color(0,0,0,170));
+            historiales[linea].setOpaque(true);
+            panel.add(historiales[linea]);
+            medida += 75;
         }
+        
+        jugadores.get(idIniciado).imprimirHistorial();
 
         ImageIcon titulo = new ImageIcon("titulo.png");
         etiquetaTitulo = new JLabel();
@@ -1259,6 +1253,24 @@ public class Battleship extends JFrame implements ActionListener {
         }
         
     }
+    
+    public void randomize1() {
+        
+        for (int fila = 0; fila < matriz1.length; fila++) {
+            for (int columna = 0; columna < matriz1[fila].length; columna++) {
+                if (matriz1[fila][columna] != null) {
+                    
+                }
+            }
+        }
+        
+    }
+    
+    public void randomize2() {
+        
+        
+        
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -1400,12 +1412,12 @@ public class Battleship extends JFrame implements ActionListener {
             if (hundidos == maxBarcos || hundidos2 == maxBarcos) {
                 if (hundidos == maxBarcos) {
                     jugadores.get(idIniciado).setPuntos(3);
-                    label.setText(jugadores.get(idIniciado).setOracionHistorial((byte) 0, jugadores.get(id2).getNombreUsuario()));
+                    jugadores.get(idIniciado).setOracionHistorial(0, jugadores.get(id2).getNombreUsuario());
                     jugadores.get(id2).setOracionHistorial((byte) 1, jugadores.get(idIniciado).getNombreUsuario());
                 }
                 if (hundidos2 == maxBarcos) {
                     jugadores.get(id2).setPuntos(3);
-                    label.setText(jugadores.get(idIniciado).setOracionHistorial((byte) 1, jugadores.get(id2).getNombreUsuario()));
+                    jugadores.get(idIniciado).setOracionHistorial(1, jugadores.get(id2).getNombreUsuario());
                     panel.add(label, JLayeredPane.DRAG_LAYER);
                     panel.setVisible(true);
                     for (JButton[] filas : tablero) {
@@ -1413,7 +1425,7 @@ public class Battleship extends JFrame implements ActionListener {
                             filas[columnas].setEnabled(false);
                         }
                     }
-                    jugadores.get(id2).setOracionHistorial((byte) 0, jugadores.get(idIniciado).getNombreUsuario());
+                    jugadores.get(id2).setOracionHistorial(0, jugadores.get(idIniciado).getNombreUsuario());
                 }
                 
                 panel.setVisible(false);

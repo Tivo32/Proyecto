@@ -8,13 +8,12 @@ public class Player {
 
     String nombreUsuario, contraseña;
     private int puntos;
-    ArrayList <String> historial;
+    ArrayList <String> historial = new ArrayList();
 
     public Player(String nombreUsuarioT, String contraseñaT) {
         nombreUsuario = nombreUsuarioT;
         contraseña = contraseñaT;
         puntos = 0;
-        historial = new ArrayList();
     }
 
     public String getNombreUsuario() {
@@ -41,19 +40,23 @@ public class Player {
         return puntos;
     }
     
-    public String setOracionHistorial(byte ans, String nombre2){
+    public ArrayList getHistorial() {
+        return historial;
+    }
+    
+    public void setOracionHistorial(int ans, String nombre2){
         String oracion;
          switch (ans) {
 
             case 0:
-                oracion= nombreUsuario + "a ganado contra" + nombre2;
-
+                oracion= nombreUsuario + " a ganado contra " + nombre2;
+                break;
             case 1:
-                oracion= nombreUsuario + "a perdido contra" + nombre2;
-
+                oracion= nombreUsuario + " a perdido contra " + nombre2;
+                break;
             case 2:
-                oracion= nombreUsuario + "se ha retirado contra" + nombre2;
-
+                oracion= nombreUsuario + " se ha retirado contra " + nombre2;
+                break;
             default:
                oracion = null;
         }
@@ -65,13 +68,12 @@ public class Player {
             historial.remove(0);
             historial.add(oracion);
         } 
-        return oracion;
     }
     
     public void imprimirHistorial() {
         for(int control1=1, control2=9; control2 > -1;control2--) {
             if(control2 < historial.size()) { 
-                System.out.println(control1+". "+historial.get(control2));
+                System.out.println(control1+". "+historial.get(control1-1));
                 control1++;
             }
         }
